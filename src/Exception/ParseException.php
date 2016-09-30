@@ -10,8 +10,8 @@ use InvalidArgumentException;
 class ParseException extends InvalidArgumentException
 {
     /**
-     * @param array $array
-     * @param $key
+     * @param array  $array
+     * @param string $key
      *
      * @return ParseException
      */
