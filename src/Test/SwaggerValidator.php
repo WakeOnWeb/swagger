@@ -120,7 +120,7 @@ class SwaggerValidator
 
         $produces = array_unique(array_merge($this->swagger->getProduces(), $operation->getProduces()));
 
-        if (!in_array($actual->getContentType(), $produces)) {
+        if ($actual->getContentType() && !in_array($actual->getContentType(), $produces)) {
             throw ContentTypeException::fromInvalidContentType($actual->getContentType(), $produces);
         }
 
