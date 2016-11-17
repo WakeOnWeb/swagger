@@ -38,10 +38,13 @@ class JustinRainbowJsonSchemaValidator implements ContentValidatorInterface
      */
     public function validateContent(Response $response, $content)
     {
-        $schema = $response
-            ->getSchema()
-            ->getJsonSchemaAsJson()
-        ;
+        $schema = $response->getSchema();
+
+        if (!$schema) {
+            return;
+        }
+
+        $schema = $schema->getJsonSchemaAsJson();
 
         $filename = sprintf('%s.json', md5($schema));
 

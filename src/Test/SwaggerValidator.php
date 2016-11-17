@@ -112,6 +112,8 @@ class SwaggerValidator
 
         if ($response === null) {
             // @todo: Get the predefined responses definitions.
+
+            return;
         }
 
         if ($actual->getStatusCode() !== $code) {
