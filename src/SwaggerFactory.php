@@ -737,6 +737,6 @@ class SwaggerFactory
      */
     private function sanitizeKey($filename)
     {
-        return md5($filename);
+        return md5(filesize($filename));
     }
 }
