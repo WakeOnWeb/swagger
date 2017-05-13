@@ -1,12 +1,12 @@
 <?php
 
-namespace UCS\Swagger\Tests;
+namespace WakeOnWeb\Swagger\Tests;
 
-use UCS\Swagger\Specification\PathItem;
-use UCS\Swagger\Specification\Swagger;
-use UCS\Swagger\SwaggerFactory;
-use UCS\Swagger\Test\Response\ResponseInterface;
-use UCS\Swagger\Test\SwaggerValidator;
+use WakeOnWeb\Swagger\Specification\PathItem;
+use WakeOnWeb\Swagger\Specification\Swagger;
+use WakeOnWeb\Swagger\SwaggerFactory;
+use WakeOnWeb\Swagger\Test\Response\ResponseInterface;
+use WakeOnWeb\Swagger\Test\SwaggerValidator;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
@@ -50,7 +50,7 @@ JSON;
 
     /**
      * @test
-     * @expectedException \UCS\Swagger\Test\Exception\StatusCodeException
+     * @expectedException \WakeOnWeb\Swagger\Test\Exception\StatusCodeException
      */
     public function testValidateResponseForThrowsAnExceptionWhenTheStatusCodeIsInvalid()
     {
@@ -86,7 +86,7 @@ JSON;
 
     /**
      * @test
-     * @expectedException \UCS\Swagger\Test\Exception\ContentTypeException
+     * @expectedException \WakeOnWeb\Swagger\Test\Exception\ContentTypeException
      */
     public function testValidateResponseForThrowsAnExceptionWhenTheContentTypeIsInvalid()
     {

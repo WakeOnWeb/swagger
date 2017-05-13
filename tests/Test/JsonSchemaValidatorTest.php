@@ -1,10 +1,10 @@
 <?php
 
-namespace UCS\Swagger\Tests;
+namespace WakeOnWeb\Swagger\Tests;
 
-use UCS\Swagger\Specification\Response;
-use UCS\Swagger\Specification\Schema;
-use UCS\Swagger\Test\JustinRainbowJsonSchemaValidator;
+use WakeOnWeb\Swagger\Specification\Response;
+use WakeOnWeb\Swagger\Specification\Schema;
+use WakeOnWeb\Swagger\Test\JustinRainbowJsonSchemaValidator;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
@@ -50,7 +50,7 @@ JSON;
 
     /**
      * @test
-     * @expectedException \UCS\Swagger\Test\Exception\ContentValidatorException
+     * @expectedException \WakeOnWeb\Swagger\Test\Exception\ContentValidatorException
      */
     public function testValidateContentThrowsAnExceptionWhenInvalid()
     {

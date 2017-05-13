@@ -1,6 +1,6 @@
 <?php
 
-namespace UCS\Swagger\Test\Response;
+namespace WakeOnWeb\Swagger\Test\Response;
 
 use Symfony\Component\HttpFoundation\Response;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace UCS\Swagger;
+namespace WakeOnWeb\Swagger;
 
-use UCS\Swagger\Specification\Definitions;
-use UCS\Swagger\Specification\ParametersDefinitions;
-use UCS\Swagger\Specification\ResponsesDefinitions;
-use UCS\Swagger\Specification\SecurityDefinitions;
+use WakeOnWeb\Swagger\Specification\Definitions;
+use WakeOnWeb\Swagger\Specification\ParametersDefinitions;
+use WakeOnWeb\Swagger\Specification\ResponsesDefinitions;
+use WakeOnWeb\Swagger\Specification\SecurityDefinitions;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>

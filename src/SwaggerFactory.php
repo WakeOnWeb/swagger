@@ -1,33 +1,33 @@
 <?php
 
-namespace UCS\Swagger;
+namespace WakeOnWeb\Swagger;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Psr\Cache\CacheItemPoolInterface;
-use UCS\Swagger\Exception\ParseException;
-use UCS\Swagger\Loader\Exception\LoaderException;
-use UCS\Swagger\Loader\LoaderInterface;
-use UCS\Swagger\Specification\Definitions;
-use UCS\Swagger\Specification\Examples;
-use UCS\Swagger\Specification\ExternalDocumentation;
-use UCS\Swagger\Specification\Header;
-use UCS\Swagger\Specification\Headers;
-use UCS\Swagger\Specification\Info;
-use UCS\Swagger\Specification\Operation;
-use UCS\Swagger\Specification\Parameter;
-use UCS\Swagger\Specification\ParametersDefinitions;
-use UCS\Swagger\Specification\PathItem;
-use UCS\Swagger\Specification\Paths;
-use UCS\Swagger\Specification\Reference;
-use UCS\Swagger\Specification\Response;
-use UCS\Swagger\Specification\Responses;
-use UCS\Swagger\Specification\ResponsesDefinitions;
-use UCS\Swagger\Specification\Schema;
-use UCS\Swagger\Specification\SecurityDefinitions;
-use UCS\Swagger\Specification\SecurityRequirement;
-use UCS\Swagger\Specification\Swagger;
-use UCS\Swagger\Specification\Tag;
-use UCS\Swagger\Specification\Xml;
+use WakeOnWeb\Swagger\Exception\ParseException;
+use WakeOnWeb\Swagger\Loader\Exception\LoaderException;
+use WakeOnWeb\Swagger\Loader\LoaderInterface;
+use WakeOnWeb\Swagger\Specification\Definitions;
+use WakeOnWeb\Swagger\Specification\Examples;
+use WakeOnWeb\Swagger\Specification\ExternalDocumentation;
+use WakeOnWeb\Swagger\Specification\Header;
+use WakeOnWeb\Swagger\Specification\Headers;
+use WakeOnWeb\Swagger\Specification\Info;
+use WakeOnWeb\Swagger\Specification\Operation;
+use WakeOnWeb\Swagger\Specification\Parameter;
+use WakeOnWeb\Swagger\Specification\ParametersDefinitions;
+use WakeOnWeb\Swagger\Specification\PathItem;
+use WakeOnWeb\Swagger\Specification\Paths;
+use WakeOnWeb\Swagger\Specification\Reference;
+use WakeOnWeb\Swagger\Specification\Response;
+use WakeOnWeb\Swagger\Specification\Responses;
+use WakeOnWeb\Swagger\Specification\ResponsesDefinitions;
+use WakeOnWeb\Swagger\Specification\Schema;
+use WakeOnWeb\Swagger\Specification\SecurityDefinitions;
+use WakeOnWeb\Swagger\Specification\SecurityRequirement;
+use WakeOnWeb\Swagger\Specification\Swagger;
+use WakeOnWeb\Swagger\Specification\Tag;
+use WakeOnWeb\Swagger\Specification\Xml;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>

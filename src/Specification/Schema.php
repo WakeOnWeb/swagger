@@ -1,6 +1,6 @@
 <?php
 
-namespace UCS\Swagger\Specification;
+namespace WakeOnWeb\Swagger\Specification;
 
 use JsonSerializable;
 

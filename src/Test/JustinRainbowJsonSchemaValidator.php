@@ -1,12 +1,12 @@
 <?php
 
-namespace UCS\Swagger\Test;
+namespace WakeOnWeb\Swagger\Test;
 
 use org\bovigo\vfs\vfsStream as Stream;
 use org\bovigo\vfs\vfsStreamDirectory as Directory;
 use org\bovigo\vfs\vfsStreamFile as File;
-use UCS\Swagger\Specification\Response;
-use UCS\Swagger\Test\Exception\JsonSchemaException;
+use WakeOnWeb\Swagger\Specification\Response;
+use WakeOnWeb\Swagger\Test\Exception\JsonSchemaException;
 use Webmozart\Json\JsonValidator;
 
 /**

@@ -1,14 +1,14 @@
 <?php
 
-namespace UCS\Swagger\Test;
+namespace WakeOnWeb\Swagger\Test;
 
 use InvalidArgumentException;
-use UCS\Swagger\Specification\PathItem;
-use UCS\Swagger\Specification\Swagger;
-use UCS\Swagger\Test\Exception\ContentTypeException;
-use UCS\Swagger\Test\Exception\ContentValidatorException;
-use UCS\Swagger\Test\Exception\StatusCodeException;
-use UCS\Swagger\Test\Response\ResponseInterface;
+use WakeOnWeb\Swagger\Specification\PathItem;
+use WakeOnWeb\Swagger\Specification\Swagger;
+use WakeOnWeb\Swagger\Test\Exception\ContentTypeException;
+use WakeOnWeb\Swagger\Test\Exception\ContentValidatorException;
+use WakeOnWeb\Swagger\Test\Exception\StatusCodeException;
+use WakeOnWeb\Swagger\Test\Response\ResponseInterface;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>

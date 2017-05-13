@@ -1,10 +1,10 @@
 <?php
 
-namespace UCS\Swagger\Tests\Loader;
+namespace WakeOnWeb\Swagger\Tests\Loader;
 
 use org\bovigo\vfs\vfsStream as Stream;
 use org\bovigo\vfs\vfsStreamFile as File;
-use UCS\Swagger\Loader\JsonLoader;
+use WakeOnWeb\Swagger\Loader\JsonLoader;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>

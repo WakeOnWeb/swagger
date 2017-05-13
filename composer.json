@@ -31,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "UCS\\Swagger\\": "src"
+            "WakeOnWeb\\Swagger\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "UCS\\Swagger\\Tests\\": "tests"
+            "WakeOnWeb\\Swagger\\Tests\\": "tests"
         }
     }
 }

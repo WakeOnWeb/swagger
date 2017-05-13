@@ -1,6 +1,6 @@
 <?php
 
-namespace UCS\Swagger\Test\Response;
+namespace WakeOnWeb\Swagger\Test\Response;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>

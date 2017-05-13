@@ -10,13 +10,13 @@ Basic usage with YAML Swagger File
 <?php
 
 use Symfony\Component\HttpFoundation\Response;
-use UCS\Swagger\Specification\PathItem;
-use UCS\Swagger\SwaggerFactory;
-use UCS\Swagger\Loader\YamlLoader;
-use UCS\Swagger\Test\Exception\SwaggerValidatorException;
-use UCS\Swagger\Test\JValJsonSchemaValidator;
-use UCS\Swagger\Test\Response\SymfonyResponseAdapter;
-use UCS\Swagger\Test\SwaggerValidator;
+use WakeOnWeb\Swagger\Specification\PathItem;
+use WakeOnWeb\Swagger\SwaggerFactory;
+use WakeOnWeb\Swagger\Loader\YamlLoader;
+use WakeOnWeb\Swagger\Test\Exception\SwaggerValidatorException;
+use WakeOnWeb\Swagger\Test\JValJsonSchemaValidator;
+use WakeOnWeb\Swagger\Test\Response\SymfonyResponseAdapter;
+use WakeOnWeb\Swagger\Test\SwaggerValidator;
 
 $factory = new SwaggerFactory();
 $factory->addLoader(new YamlLoader());
@@ -49,13 +49,13 @@ Basic usage with JSON Swagger File
 <?php
 
 use Symfony\Component\HttpFoundation\Response;
-use UCS\Swagger\Specification\PathItem;
-use UCS\Swagger\SwaggerFactory;
-use UCS\Swagger\Loader\JsonLoader;
-use UCS\Swagger\Test\Exception\SwaggerValidatorException;
-use UCS\Swagger\Test\JValJsonSchemaValidator;
-use UCS\Swagger\Test\Response\SymfonyResponseAdapter;
-use UCS\Swagger\Test\SwaggerValidator;
+use WakeOnWeb\Swagger\Specification\PathItem;
+use WakeOnWeb\Swagger\SwaggerFactory;
+use WakeOnWeb\Swagger\Loader\JsonLoader;
+use WakeOnWeb\Swagger\Test\Exception\SwaggerValidatorException;
+use WakeOnWeb\Swagger\Test\JValJsonSchemaValidator;
+use WakeOnWeb\Swagger\Test\Response\SymfonyResponseAdapter;
+use WakeOnWeb\Swagger\Test\SwaggerValidator;
 
 $factory = new SwaggerFactory();
 $factory->addLoader(new JsonLoader());

@@ -1,8 +1,8 @@
 <?php
 
-namespace UCS\Swagger\Loader;
+namespace WakeOnWeb\Swagger\Loader;
 
-use UCS\Swagger\Loader\Exception\LoaderException;
+use WakeOnWeb\Swagger\Loader\Exception\LoaderException;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>

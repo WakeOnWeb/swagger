@@ -1,9 +1,9 @@
 <?php
 
-namespace UCS\Swagger\Test;
+namespace WakeOnWeb\Swagger\Test;
 
-use UCS\Swagger\Specification\Response;
-use UCS\Swagger\Test\Exception\ContentValidatorException;
+use WakeOnWeb\Swagger\Specification\Response;
+use WakeOnWeb\Swagger\Test\Exception\ContentValidatorException;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
