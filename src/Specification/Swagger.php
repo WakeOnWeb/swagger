@@ -7,24 +7,6 @@ namespace WakeOnWeb\Swagger\Specification;
  */
 class Swagger
 {
-    const SCHEME_HTTP = 'http';
-    const SCHEME_HTTPS = 'https';
-    const SCHEME_WS = 'ws';
-    const SCHEME_WSS = 'wss';
-
-    /**
-     * @return string[]
-     */
-    public static function getValidSchemes()
-    {
-        return [
-            self::SCHEME_HTTP,
-            self::SCHEME_HTTPS,
-            self::SCHEME_WS,
-            self::SCHEME_WSS,
-        ];
-    }
-
     /**
      * @var string
      */

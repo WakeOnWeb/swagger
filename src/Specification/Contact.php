@@ -5,12 +5,12 @@ namespace WakeOnWeb\Swagger\Specification;
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
  */
-class ExternalDocumentation
+class Contact
 {
     /**
      * @var string
      */
-    private $description;
+    private $name;
 
     /**
      * @var string
@@ -18,21 +18,28 @@ class ExternalDocumentation
     private $url;
 
     /**
-     * @param string $description
-     * @param string $url
+     * @var string
      */
-    public function __construct($description, $url)
+    private $email;
+
+    /**
+     * @param string $name
+     * @param string $url
+     * @param string $email
+     */
+    public function __construct($name, $url, $email)
     {
-        $this->description = $description;
+        $this->name = $name;
         $this->url = $url;
+        $this->email = $email;
     }
 
     /**
      * @return string
      */
-    public function getDescription()
+    public function getName()
     {
-        return $this->description;
+        return $this->name;
     }
 
     /**
@@ -41,5 +48,13 @@ class ExternalDocumentation
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

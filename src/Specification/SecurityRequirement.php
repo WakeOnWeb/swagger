@@ -8,9 +8,25 @@ namespace WakeOnWeb\Swagger\Specification;
 class SecurityRequirement
 {
     /**
-     *
+     * @var string[][]
      */
-    public function __construct()
+    private $schemes;
+
+    /**
+     * @param string[][] $schemes
+     */
+    public function __construct(array $schemes)
     {
+        $this->schemes = $schemes;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string[]
+     */
+    public function getScheme($name)
+    {
+        return $this->schemes[$name];
     }
 }

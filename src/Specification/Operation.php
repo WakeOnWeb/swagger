@@ -43,7 +43,7 @@ class Operation
     private $produces;
 
     /**
-     * @var Parameter[]|Reference[]
+     * @var BodyAbstractParameter[]|Reference[]
      */
     private $parameters;
 
@@ -68,18 +68,18 @@ class Operation
     private $security;
 
     /**
-     * @param string[]                   $tags
-     * @param string                     $summary
-     * @param string                     $description
-     * @param ExternalDocumentation|null $externalDocs
-     * @param string                     $operationId
-     * @param string[]                   $consumes
-     * @param string[]                   $produces
-     * @param Parameter[]|Reference[]    $parameters
-     * @param Responses                  $responses
-     * @param string[]                   $schemes
-     * @param bool                       $deprecated
-     * @param SecurityRequirement[]      $security
+     * @param string[]                            $tags
+     * @param string                              $summary
+     * @param string                              $description
+     * @param ExternalDocumentation|null          $externalDocs
+     * @param string                              $operationId
+     * @param string[]                            $consumes
+     * @param string[]                            $produces
+     * @param BodyAbstractParameter[]|Reference[] $parameters
+     * @param Responses                           $responses
+     * @param string[]                            $schemes
+     * @param bool                                $deprecated
+     * @param SecurityRequirement[]               $security
      */
     public function __construct(array $tags, $summary, $description, ExternalDocumentation $externalDocs = null, $operationId, array $consumes, array $produces, array $parameters, Responses $responses, array $schemes, $deprecated, array $security)
     {
@@ -154,7 +154,7 @@ class Operation
     }
 
     /**
-     * @return Parameter[]|Reference[]
+     * @return BodyAbstractParameter[]|Reference[]
      */
     public function getParameters()
     {

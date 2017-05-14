@@ -8,9 +8,15 @@ namespace WakeOnWeb\Swagger\Specification;
 class Reference
 {
     /**
-     *
+     * @var string
      */
-    public function __construct()
+    private $ref;
+
+    /**
+     * @param string $ref
+     */
+    public function __construct($ref)
     {
+        $this->ref = $ref;
     }
 }

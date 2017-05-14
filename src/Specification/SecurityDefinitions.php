@@ -8,9 +8,25 @@ namespace WakeOnWeb\Swagger\Specification;
 class SecurityDefinitions
 {
     /**
-     *
+     * @var SecurityScheme[]
      */
-    public function __construct()
+    private $definitions;
+
+    /**
+     * @param SecurityScheme[] $definitions
+     */
+    public function __construct(array $definitions)
     {
+        $this->definitions = $definitions;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return SecurityScheme
+     */
+    public function getSecurityScheme($name)
+    {
+        return $this->definitions[$name];
     }
 }

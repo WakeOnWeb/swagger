@@ -8,9 +8,25 @@ namespace WakeOnWeb\Swagger\Specification;
 class ResponsesDefinitions
 {
     /**
-     *
+     * @var Response[]
      */
-    public function __construct()
+    private $responses;
+
+    /**
+     * @param Response[] $responses
+     */
+    public function __construct(array $responses)
     {
+        $this->responses = $responses;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Response
+     */
+    public function getResponse($name)
+    {
+        return $this->responses[$name];
     }
 }

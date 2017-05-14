@@ -51,21 +51,21 @@ class PathItem
     private $patch;
 
     /**
-     * @var Parameter[]|Reference[]
+     * @var BodyAbstractParameter[]|Reference[]
      */
     private $parameters;
 
     /**
      * PathItem constructor.
      *
-     * @param Operation|null          $get
-     * @param Operation|null          $put
-     * @param Operation|null          $post
-     * @param Operation|null          $delete
-     * @param Operation|null          $options
-     * @param Operation|null          $head
-     * @param Operation|null          $patch
-     * @param Parameter[]|Reference[] $parameters
+     * @param Operation|null                      $get
+     * @param Operation|null                      $put
+     * @param Operation|null                      $post
+     * @param Operation|null                      $delete
+     * @param Operation|null                      $options
+     * @param Operation|null                      $head
+     * @param Operation|null                      $patch
+     * @param BodyAbstractParameter[]|Reference[] $parameters
      */
     public function __construct(Operation $get = null, Operation $put = null, Operation $post = null, Operation $delete = null, Operation $options = null, Operation $head = null, Operation $patch = null, array $parameters)
     {
@@ -136,7 +136,7 @@ class PathItem
     }
 
     /**
-     * @return Parameter[]|Reference[]
+     * @return BodyAbstractParameter[]|Reference[]
      */
     public function getParameters()
     {

@@ -8,9 +8,33 @@ namespace WakeOnWeb\Swagger\Specification;
 class Examples
 {
     /**
-     *
+     * @var array
      */
-    public function __construct()
+    private $examples;
+
+    /**
+     * @param array $examples
+     */
+    public function __construct(array $examples)
     {
+        $this->examples = $examples;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExamples()
+    {
+        return $this->examples;
+    }
+
+    /**
+     * @param string $mimeType
+     *
+     * @return mixed
+     */
+    public function getExampleFor($mimeType)
+    {
+        return $this->examples[$mimeType];
     }
 }

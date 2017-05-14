@@ -8,9 +8,29 @@ namespace WakeOnWeb\Swagger\Specification;
 class Headers
 {
     /**
-     *
+     * @var Header[]
      */
-    public function __construct()
+    private $headers = [];
+
+    /**
+     * Constructor.
+     *
+     * @param Header[] $headers
+     */
+    public function __construct(array $headers)
     {
+        foreach ($this->headers as $name => $header) {
+            $this->headers[strtolower($name)] = $header;
+        }
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Header
+     */
+    public function getHeader($name)
+    {
+        return $this->headers[strtolower($name)];
     }
 }

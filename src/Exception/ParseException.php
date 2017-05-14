@@ -36,21 +36,6 @@ class ParseException extends InvalidArgumentException
     }
 
     /**
-     * @param string[] $expected
-     * @param string   $actual
-     *
-     * @return ParseException
-     */
-    public static function fromInvalidScheme(array $expected, $actual)
-    {
-        return new self(sprintf(
-            'The given scheme "%s" is not in the scope of valid ones (%s).',
-            $actual,
-            implode(', ', $expected)
-        ));
-    }
-
-    /**
      * @param string $path
      *
      * @return ParseException

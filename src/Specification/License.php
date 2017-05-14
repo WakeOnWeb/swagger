@@ -5,12 +5,12 @@ namespace WakeOnWeb\Swagger\Specification;
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
  */
-class ExternalDocumentation
+class License
 {
     /**
      * @var string
      */
-    private $description;
+    private $name;
 
     /**
      * @var string
@@ -18,21 +18,21 @@ class ExternalDocumentation
     private $url;
 
     /**
-     * @param string $description
+     * @param string $name
      * @param string $url
      */
-    public function __construct($description, $url)
+    public function __construct($name, $url)
     {
-        $this->description = $description;
+        $this->name = $name;
         $this->url = $url;
     }
 
     /**
      * @return string
      */
-    public function getDescription()
+    public function getName()
     {
-        return $this->description;
+        return $this->name;
     }
 
     /**

@@ -5,13 +5,8 @@ namespace WakeOnWeb\Swagger\Specification;
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
  */
-class Header
+class Items
 {
-    /**
-     * @var string
-     */
-    private $description;
-
     /**
      * @var string
      */
@@ -98,28 +93,26 @@ class Header
     private $multipleOf;
 
     /**
-     * @param string     $description
-     * @param string     $type
-     * @param string     $format
-     * @param Items|null $items
-     * @param string     $collectionFormat
-     * @param mixed      $default
-     * @param int        $maximum
-     * @param bool       $exclusiveMaximum
-     * @param int        $minimum
-     * @param bool       $exclusiveMinimum
-     * @param int        $maxLength
-     * @param int        $minLength
-     * @param string     $pattern
-     * @param int        $maxItems
-     * @param int        $minItems
-     * @param bool       $uniqueItems
-     * @param array|null $enum
-     * @param int        $multipleOf
+     * @param string      $type
+     * @param string      $format
+     * @param Items|null  $items
+     * @param string      $collectionFormat
+     * @param mixed       $default
+     * @param int         $maximum
+     * @param bool        $exclusiveMaximum
+     * @param int         $minimum
+     * @param bool        $exclusiveMinimum
+     * @param int         $maxLength
+     * @param int         $minLength
+     * @param string      $pattern
+     * @param int         $maxItems
+     * @param int         $minItems
+     * @param bool        $uniqueItems
+     * @param array|null  $enum
+     * @param int         $multipleOf
      */
-    public function __construct($description, $type, $format, Items $items = null, $collectionFormat, $default, $maximum, $exclusiveMaximum, $minimum, $exclusiveMinimum, $maxLength, $minLength, $pattern, $maxItems, $minItems, $uniqueItems, $enum, $multipleOf)
+    public function __construct($type, $format, Items $items = null, $collectionFormat, $default, $maximum, $exclusiveMaximum, $minimum, $exclusiveMinimum, $maxLength, $minLength, $pattern, $maxItems, $minItems, $uniqueItems, array $enum = null, $multipleOf)
     {
-        $this->description = $description;
         $this->type = $type;
         $this->format = $format;
         $this->items = $items;
@@ -137,14 +130,6 @@ class Header
         $this->uniqueItems = $uniqueItems;
         $this->enum = $enum;
         $this->multipleOf = $multipleOf;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
 
     /**
@@ -196,7 +181,7 @@ class Header
     }
 
     /**
-     * @return bool
+     * @return boolean
      */
     public function isExclusiveMaximum()
     {
@@ -212,7 +197,7 @@ class Header
     }
 
     /**
-     * @return bool
+     * @return boolean
      */
     public function isExclusiveMinimum()
     {
@@ -260,7 +245,7 @@ class Header
     }
 
     /**
-     * @return bool
+     * @return boolean
      */
     public function hasUniqueItems()
     {

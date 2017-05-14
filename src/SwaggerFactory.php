@@ -7,13 +7,18 @@ use Psr\Cache\CacheItemPoolInterface;
 use WakeOnWeb\Swagger\Exception\ParseException;
 use WakeOnWeb\Swagger\Loader\Exception\LoaderException;
 use WakeOnWeb\Swagger\Loader\LoaderInterface;
+use WakeOnWeb\Swagger\Specification\AbstractParameter;
+use WakeOnWeb\Swagger\Specification\Contact;
 use WakeOnWeb\Swagger\Specification\Definitions;
 use WakeOnWeb\Swagger\Specification\Examples;
 use WakeOnWeb\Swagger\Specification\ExternalDocumentation;
 use WakeOnWeb\Swagger\Specification\Header;
 use WakeOnWeb\Swagger\Specification\Headers;
 use WakeOnWeb\Swagger\Specification\Info;
+use WakeOnWeb\Swagger\Specification\Items;
+use WakeOnWeb\Swagger\Specification\License;
 use WakeOnWeb\Swagger\Specification\Operation;
+use WakeOnWeb\Swagger\Specification\BodyParameter;
 use WakeOnWeb\Swagger\Specification\Parameter;
 use WakeOnWeb\Swagger\Specification\ParametersDefinitions;
 use WakeOnWeb\Swagger\Specification\PathItem;
@@ -23,8 +28,10 @@ use WakeOnWeb\Swagger\Specification\Response;
 use WakeOnWeb\Swagger\Specification\Responses;
 use WakeOnWeb\Swagger\Specification\ResponsesDefinitions;
 use WakeOnWeb\Swagger\Specification\Schema;
+use WakeOnWeb\Swagger\Specification\Scopes;
 use WakeOnWeb\Swagger\Specification\SecurityDefinitions;
 use WakeOnWeb\Swagger\Specification\SecurityRequirement;
+use WakeOnWeb\Swagger\Specification\SecurityScheme;
 use WakeOnWeb\Swagger\Specification\Swagger;
 use WakeOnWeb\Swagger\Specification\Tag;
 use WakeOnWeb\Swagger\Specification\Xml;
@@ -121,29 +128,13 @@ class SwaggerFactory
 
         $host = $this->get($spec, 'host');
 
-        // @todo: Validate "host".
-
         $basePath = $this->get($spec, 'basePath');
-
-        // @todo: Validate "basePath".
 
         $schemes = $this->get($spec, 'schemes', []);
 
-        $validSchemes = Swagger::getValidSchemes();
-
-        foreach ($schemes as $scheme) {
-            if (!in_array($scheme, $validSchemes)) {
-                throw ParseException::fromInvalidScheme($validSchemes, $scheme);
-            }
-        }
-
         $consumes = $this->get($spec, 'consumes', []);
 
-        // @todo: Validate "consumes".
-
         $produces = $this->get($spec, 'produces', []);
-
-        // @todo: Validate "produces".
 
         $definitions = $this->parseDefinitions($this->get($spec, 'definitions', []));
 
@@ -179,8 +170,6 @@ class SwaggerFactory
     }
 
     /**
-     * @todo: Parse the "Info" object.
-     *
      * @param array $spec
      *
      * @return Info
@@ -189,7 +178,61 @@ class SwaggerFactory
      */
     private function parseInfo(array $spec)
     {
-        return new Info();
+        $title = $this->getRequired($spec, 'title');
+
+        $description = $this->get($spec, 'description');
+
+        $termsOfService = $this->get($spec, 'termsOfService');
+
+        $contact = $this->get($spec, 'contact');
+
+        if ($contact !== null) {
+            $contact = $this->parseContact($contact);
+        }
+
+        $license = $this->get($spec, 'license');
+
+        if ($license !== null) {
+            $license = $this->parseLicense($contact);
+        }
+
+        $version = $this->getRequired($spec, 'version');
+
+        return new Info($title, $description, $termsOfService, $contact, $license, $version);
+    }
+
+    /**
+     * @param array $spec
+     *
+     * @return Contact
+     *
+     * @throws ParseException
+     */
+    private function parseContact(array $spec)
+    {
+        $name = $this->get($spec, 'name');
+
+        $url = $this->get($spec, 'url');
+
+        $email = $this->get($spec, 'email');
+
+        return new Contact($name, $url, $email);
+    }
+
+    /**
+     * @param array $spec
+     *
+     * @return License
+     *
+     * @throws ParseException
+     */
+    private function parseLicense(array $spec)
+    {
+        $name = $this->get($spec, 'name');
+
+        $url = $this->get($spec, 'url');
+
+        return new License($name, $url);
     }
 
     /**
@@ -291,8 +334,6 @@ class SwaggerFactory
     }
 
     /**
-     * @todo: Parse the "Reference" object.
-     *
      * @param array $spec
      *
      * @return Reference
@@ -301,21 +342,123 @@ class SwaggerFactory
      */
     private function parseReference(array $spec)
     {
-        return new Reference();
+        return new Reference($spec['$ref']);
     }
 
     /**
-     * @todo: Parse the "Parameter" object.
-     *
      * @param array $spec
      *
-     * @return Parameter
+     * @return AbstractParameter
      *
      * @throws ParseException
      */
     private function parseParameter(array $spec)
     {
-        return new Parameter();
+        $name = $this->getRequired($spec, 'name');
+
+        $in = $this->getRequired($spec, 'in');
+
+        $description = $this->get($spec, 'description');
+
+        $required = $this->get($spec, 'required', false);
+
+        if ($in === 'body') {
+            $schema = $this->parseSchema($this->getRequired($spec, 'schema'));
+
+            return new BodyParameter($name, $in, $description, $required, $schema);
+        } else {
+            $type = $this->getRequired($spec, 'type');
+
+            $format = $this->get($spec, 'format');
+
+            $allowEmptyValue = $this->get($spec, 'allowEmptyValue', false);
+
+            if ($type === 'array') {
+                $items = $this->parseItems($this->getRequired($spec, 'items'));
+            } else {
+                $items = null;
+            }
+
+            $collectionFormat = $this->get($spec, 'collectionFormat');
+
+            $default = $this->get($spec, 'default');
+
+            $maximum = $this->get($spec, 'maximum');
+
+            $exclusiveMaximum = $this->get($spec, 'exclusiveMaximum');
+
+            $minimum = $this->get($spec, 'minimum');
+
+            $exclusiveMinimum = $this->get($spec, 'exclusiveMinimum');
+
+            $maxLength = $this->get($spec, 'maxLength');
+
+            $minLength = $this->get($spec, 'minLength');
+
+            $pattern = $this->get($spec, 'pattern');
+
+            $maxItems = $this->get($spec, 'maxItems');
+
+            $minItems = $this->get($spec, 'minItems');
+
+            $uniqueItems = $this->get($spec, 'uniqueItems');
+
+            $enum = $this->get($spec, 'enum');
+
+            $multipleOf = $this->get($spec, 'multipleOf');
+
+            return new Parameter($name, $in, $description, $required, $type, $format, $allowEmptyValue, $items, $collectionFormat, $default, $maximum, $exclusiveMaximum, $minimum, $exclusiveMinimum, $maxLength, $minLength, $pattern, $maxItems, $minItems, $uniqueItems, $enum, $multipleOf);
+        }
+    }
+
+    /**
+     * @param array $spec
+     *
+     * @return Items
+     *
+     * @throws ParseException
+     */
+    private function parseItems(array $spec)
+    {
+        $type = $this->getRequired($spec, 'type');
+
+        $format = $this->get($spec, 'format');
+
+        if ($type === 'array') {
+            $items = $this->parseItems($this->getRequired($spec, 'items'));
+        } else {
+            $items = null;
+        }
+
+        $collectionFormat = $this->get($spec, 'collectionFormat');
+
+        $default = $this->get($spec, 'default');
+
+        $maximum = $this->get($spec, 'maximum');
+
+        $exclusiveMaximum = $this->get($spec, 'exclusiveMaximum');
+
+        $minimum = $this->get($spec, 'minimum');
+
+        $exclusiveMinimum = $this->get($spec, 'exclusiveMinimum');
+
+        $maxLength = $this->get($spec, 'maxLength');
+
+        $minLength = $this->get($spec, 'minLength');
+
+        $pattern = $this->get($spec, 'pattern');
+
+        $maxItems = $this->get($spec, 'maxItems');
+
+        $minItems = $this->get($spec, 'minItems');
+
+        $uniqueItems = $this->get($spec, 'uniqueItems');
+
+        $enum = $this->get($spec, 'enum');
+
+        $multipleOf = $this->get($spec, 'multipleOf');
+
+        return new Items($type, $format, $items, $collectionFormat, $default, $maximum, $exclusiveMaximum, $minimum, $exclusiveMinimum, $maxLength, $minLength, $pattern, $maxItems, $minItems, $uniqueItems, $enum, $multipleOf);
     }
 
     /**
@@ -363,14 +506,6 @@ class SwaggerFactory
         $responses = $this->parseResponses($this->getRequired($spec, 'responses'), $context);
 
         $schemes = $this->get($spec, 'schemes', []);
-
-        $validSchemes = Swagger::getValidSchemes();
-
-        foreach ($schemes as $scheme) {
-            if (!in_array($scheme, $validSchemes)) {
-                throw ParseException::fromInvalidScheme($validSchemes, $scheme);
-            }
-        }
 
         $deprecated = $this->get($spec, 'deprecated', false);
 
@@ -505,8 +640,6 @@ class SwaggerFactory
     }
 
     /**
-     * @todo: Parse the "Xml" object.
-     *
      * @param array $spec
      *
      * @return Xml
@@ -515,7 +648,17 @@ class SwaggerFactory
      */
     private function parseXml(array $spec)
     {
-        return new Xml();
+        $name = $this->get($spec, 'name');
+
+        $namespace = $this->get($spec, 'namespace');
+
+        $prefix = $this->get($spec, 'prefix');
+
+        $attribute = $this->get($spec, 'attribute');
+
+        $wrapped = $this->get($spec, 'wrapped');
+
+        return new Xml($name, $namespace, $prefix, $attribute, $wrapped);
     }
 
     /**
@@ -537,8 +680,6 @@ class SwaggerFactory
     }
 
     /**
-     * @todo: Parse the "Header" object.
-     *
      * @param array $spec
      *
      * @return Header
@@ -547,12 +688,50 @@ class SwaggerFactory
      */
     private function parseHeader(array $spec)
     {
-        return new Header();
+        $description = $this->get($spec, 'description');
+
+        $type = $this->getRequired($spec, 'type');
+
+        $format = $this->get($spec, 'format');
+
+        if ($type === 'array') {
+            $items = $this->getRequired($spec, 'items');
+        } else {
+            $items = null;
+        }
+
+        $collectionFormat = $this->get($spec, 'collectionFormat');
+
+        $default = $this->get($spec, 'default');
+
+        $maximum = $this->get($spec, 'maximum');
+
+        $exclusiveMaximum = $this->get($spec, 'exclusiveMaximum');
+
+        $minimum = $this->get($spec, 'minimum');
+
+        $exclusiveMinimum = $this->get($spec, 'exclusiveMinimum');
+
+        $maxLength = $this->get($spec, 'maxLength');
+
+        $minLength = $this->get($spec, 'minLength');
+
+        $pattern = $this->get($spec, 'pattern');
+
+        $maxItems = $this->get($spec, 'maxItems');
+
+        $minItems = $this->get($spec, 'minItems');
+
+        $uniqueItems = $this->get($spec, 'uniqueItems');
+
+        $enum = $this->get($spec, 'enum');
+
+        $multipleOf = $this->get($spec, 'multipleOf');
+
+        return new Header($description, $type, $format, $items, $collectionFormat, $default, $maximum, $exclusiveMaximum, $minimum, $exclusiveMinimum, $maxLength, $minLength, $pattern, $maxItems, $minItems, $uniqueItems, $enum, $multipleOf);
     }
 
     /**
-     * @todo: Parse the "Examples" object.
-     *
      * @param array $spec
      *
      * @return Examples
@@ -561,12 +740,10 @@ class SwaggerFactory
      */
     private function parseExamples(array $spec)
     {
-        return new Examples();
+        return new Examples($spec);
     }
 
     /**
-     * @todo: Parse the "Definitions" object.
-     *
      * @param array $spec
      *
      * @return Definitions
@@ -585,8 +762,6 @@ class SwaggerFactory
     }
 
     /**
-     * @todo: Parse the "ParametersDefinitions" object.
-     *
      * @param array $spec
      *
      * @return ParametersDefinitions
@@ -595,12 +770,16 @@ class SwaggerFactory
      */
     private function parseParametersDefinitions(array $spec)
     {
-        return new ParametersDefinitions();
+        $parameters = [];
+
+        foreach ($spec as $name => $subSpec) {
+            $parameters[$name] = $this->parseParameter($subSpec);
+        }
+
+        return new ParametersDefinitions($parameters);
     }
 
     /**
-     * @todo: Parse the "ResponsesDefinitions" object.
-     *
      * @param array $spec
      *
      * @return ResponsesDefinitions
@@ -609,12 +788,16 @@ class SwaggerFactory
      */
     private function parseResponsesDefinitions(array $spec)
     {
-        return new ResponsesDefinitions();
+        $responses = [];
+
+        foreach ($spec as $name => $subSpec) {
+            $responses[$name] = $this->parseResponse($subSpec);
+        }
+
+        return new ResponsesDefinitions($responses);
     }
 
     /**
-     * @todo: Parse the "SecurityDefinitions" object.
-     *
      * @param array $spec
      *
      * @return SecurityDefinitions
@@ -623,12 +806,56 @@ class SwaggerFactory
      */
     private function parseSecurityDefinitions(array $spec)
     {
-        return new SecurityDefinitions();
+        $definitions = [];
+
+        foreach ($spec as $name => $subSpec) {
+            $definitions[$name] = $this->parseSecurityScheme($subSpec);
+        }
+
+        return new SecurityDefinitions($definitions);
     }
 
     /**
-     * @todo: Parse the "parseSecurityRequirement" object.
+     * @param array $spec
      *
+     * @return SecurityScheme
+     *
+     * @throws ParseException
+     */
+    private function parseSecurityScheme(array $spec)
+    {
+        $type = $this>$this->getRequired($spec, 'type');
+
+        $description = $this->get($spec, 'description');
+
+        $name = $this->getRequired($spec, 'name');
+
+        $in = $this->getRequired($spec, 'in');
+
+        $flow = $this->getRequired($spec, 'flow');
+
+        $authorizationUrl = $this->getRequired($spec, 'authorizationUrl');
+
+        $tokenUrl = $this->getRequired($spec, 'tokenUrl');
+
+        $scopes = $this->parseScopes($this->getRequired($spec, 'scopes'));
+
+        return new SecurityScheme($type, $description, $name, $in, $flow, $authorizationUrl, $tokenUrl, $scopes);
+    }
+
+    /**
+     * @param array $spec
+     *
+     * @return Scopes
+     *
+     * @throws ParseException
+     */
+    private function parseScopes(array $spec)
+    {
+        return new Scopes($spec);
+    }
+
+    /**
      * @param array $spec
      *
      * @return SecurityRequirement
@@ -637,12 +864,10 @@ class SwaggerFactory
      */
     private function parseSecurityRequirement(array $spec)
     {
-        return new SecurityRequirement();
+        return new SecurityRequirement($spec);
     }
 
     /**
-     * @todo: Parse the "Tag" object.
-     *
      * @param array $spec
      *
      * @return Tag
@@ -651,12 +876,20 @@ class SwaggerFactory
      */
     private function parseTag(array $spec)
     {
-        return new Tag();
+        $name = $this->get($spec, 'name');
+
+        $description = $this->get($spec, 'description');
+
+        $externalDocs = $this->get($spec, 'externalDocs');
+
+        if ($externalDocs !== null) {
+            $externalDocs = $this->parseExternalDocumentation($spec);
+        }
+
+        return new Tag($name, $description, $externalDocs);
     }
 
     /**
-     * @todo: Parse the "ExternalDocumentation" object.
-     *
      * @param array $spec
      *
      * @return ExternalDocumentation
@@ -665,7 +898,11 @@ class SwaggerFactory
      */
     private function parseExternalDocumentation(array $spec)
     {
-        return new ExternalDocumentation();
+        $description = $this->get($spec, 'description');
+
+        $url = $this->getRequired($spec, 'url');
+
+        return new ExternalDocumentation($description, $url);
     }
 
     /**
@@ -737,6 +974,6 @@ class SwaggerFactory
      */
     private function sanitizeKey($filename)
     {
-        return md5(filesize($filename));
+        return md5(filemtime($filename));
     }
 }
