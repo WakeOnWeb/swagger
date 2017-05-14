@@ -5,7 +5,6 @@ namespace WakeOnWeb\Swagger\Test;
 use org\bovigo\vfs\vfsStream as Stream;
 use org\bovigo\vfs\vfsStreamDirectory as Directory;
 use org\bovigo\vfs\vfsStreamFile as File;
-use WakeOnWeb\Swagger\Specification\Response;
 use WakeOnWeb\Swagger\Test\Exception\JsonSchemaException;
 use Webmozart\Json\JsonValidator;
 
@@ -36,16 +35,8 @@ class JustinRainbowJsonSchemaValidator implements ContentValidatorInterface
     /**
      * {@inheritdoc}
      */
-    public function validateContent(Response $response, $content)
+    public function validateContent($schema, $content)
     {
-        $schema = $response->getSchema();
-
-        if (!$schema) {
-            return;
-        }
-
-        $schema = $schema->getJsonSchemaAsJson();
-
         $filename = sprintf('%s.json', md5($schema));
 
         if (!$this->directory->hasChild($filename)) {

@@ -22,6 +22,8 @@ class SwaggerValidatorTest extends \PHPUnit_Framework_TestCase
 {
     "swagger": "2.0",
     "info": {
+        "title": "test",
+        "version": "1.0"
     },
     "produces": [
         "application/json"
@@ -58,6 +60,8 @@ JSON;
 {
     "swagger": "2.0",
     "info": {
+        "title": "test",
+        "version": "1.0"
     },
     "produces": [
         "application/json"
@@ -94,6 +98,8 @@ JSON;
 {
     "swagger": "2.0",
     "info": {
+        "title": "test",
+        "version": "1.0"
     },
     "produces": [
         "application/json"
@@ -130,6 +136,8 @@ JSON;
 {
     "swagger": "2.0",
     "info": {
+        "title": "test",
+        "version": "1.0"
     },
     "produces": [
         "application/json"

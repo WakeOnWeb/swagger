@@ -36,16 +36,8 @@ class JValJsonSchemaValidator implements ContentValidatorInterface
     /**
      * {@inheritdoc}
      */
-    public function validateContent(Response $response, $content)
+    public function validateContent($schema, $content)
     {
-        $schema = $response->getSchema();
-
-        if (!$schema) {
-            return;
-        }
-
-        $schema = $schema->getJsonSchemaAsJson();
-
         $filename = sprintf('%s.json', md5($schema));
 
         if (!$this->directory->hasChild($filename)) {

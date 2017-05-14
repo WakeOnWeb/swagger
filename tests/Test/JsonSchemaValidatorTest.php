@@ -2,8 +2,6 @@
 
 namespace WakeOnWeb\Swagger\Tests;
 
-use WakeOnWeb\Swagger\Specification\Response;
-use WakeOnWeb\Swagger\Specification\Schema;
 use WakeOnWeb\Swagger\Test\JustinRainbowJsonSchemaValidator;
 
 /**
@@ -45,7 +43,7 @@ JSON;
 JSON;
 
         $validator = new JustinRainbowJsonSchemaValidator();
-        $validator->validateContent($this->buildResponse($schema), $content);
+        $validator->validateContent($schema, $content);
     }
 
     /**
@@ -72,16 +70,6 @@ JSON;
 JSON;
 
         $validator = new JustinRainbowJsonSchemaValidator();
-        $validator->validateContent($this->buildResponse($schema), $content);
-    }
-
-    /**
-     * @param string $schema
-     *
-     * @return Response
-     */
-    private function buildResponse($schema)
-    {
-        return new Response(null, new Schema(json_decode($schema, true), null, null, null, null, null));
+        $validator->validateContent($schema, $content);
     }
 }

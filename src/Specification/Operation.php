@@ -43,7 +43,7 @@ class Operation
     private $produces;
 
     /**
-     * @var BodyAbstractParameter[]|Reference[]
+     * @var AbstractParameter[]
      */
     private $parameters;
 
@@ -68,18 +68,18 @@ class Operation
     private $security;
 
     /**
-     * @param string[]                            $tags
-     * @param string                              $summary
-     * @param string                              $description
-     * @param ExternalDocumentation|null          $externalDocs
-     * @param string                              $operationId
-     * @param string[]                            $consumes
-     * @param string[]                            $produces
-     * @param BodyAbstractParameter[]|Reference[] $parameters
-     * @param Responses                           $responses
-     * @param string[]                            $schemes
-     * @param bool                                $deprecated
-     * @param SecurityRequirement[]               $security
+     * @param string[]                    $tags
+     * @param string                      $summary
+     * @param string                      $description
+     * @param ExternalDocumentation|null  $externalDocs
+     * @param string                      $operationId
+     * @param string[]                    $consumes
+     * @param string[]                    $produces
+     * @param AbstractParameter[]         $parameters
+     * @param Responses                   $responses
+     * @param string[]                    $schemes
+     * @param bool                        $deprecated
+     * @param SecurityRequirement[]       $security
      */
     public function __construct(array $tags, $summary, $description, ExternalDocumentation $externalDocs = null, $operationId, array $consumes, array $produces, array $parameters, Responses $responses, array $schemes, $deprecated, array $security)
     {
@@ -154,11 +154,23 @@ class Operation
     }
 
     /**
-     * @return BodyAbstractParameter[]|Reference[]
+     * @return AbstractParameter[]
      */
     public function getParameters()
     {
         return $this->parameters;
+    }
+
+    /**
+     * @return BodyParameter|null
+     */
+    public function getBodyParameter()
+    {
+        foreach ($this->parameters as $parameter) {
+            if ($parameter->getIn() === 'body') {
+                return $parameter;
+            }
+        }
     }
 
     /**
