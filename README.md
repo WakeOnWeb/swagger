@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use WakeOnWeb\Swagger\Specification\PathItem;
 use WakeOnWeb\Swagger\SwaggerFactory;
 use WakeOnWeb\Swagger\Loader\YamlLoader;
+use WakeOnWeb\Swagger\Test\ContentValidator;
 use WakeOnWeb\Swagger\Test\Exception\SwaggerValidatorException;
 use WakeOnWeb\Swagger\Test\JValJsonSchemaValidator;
 use WakeOnWeb\Swagger\Test\Response\SymfonyResponseAdapter;
@@ -23,8 +24,11 @@ $factory->addLoader(new YamlLoader());
 
 $swagger = $factory->buildFrom('/path/to/swagger/file.yml');
 
+$contentValidator = new ContentValidator();
+$contentValidator->registerContentValidator(new JValJsonSchemaValidator());
+
 $validator = new SwaggerValidator($swagger);
-$validator->registerContentValidator(new JValJsonSchemaValidator());
+$validator->registerResponseValidator($contentValidator);
 
 $response = new Response(
     '{...}',
@@ -52,6 +56,7 @@ use Symfony\Component\HttpFoundation\Response;
 use WakeOnWeb\Swagger\Specification\PathItem;
 use WakeOnWeb\Swagger\SwaggerFactory;
 use WakeOnWeb\Swagger\Loader\JsonLoader;
+use WakeOnWeb\Swagger\Test\ContentValidator;
 use WakeOnWeb\Swagger\Test\Exception\SwaggerValidatorException;
 use WakeOnWeb\Swagger\Test\JValJsonSchemaValidator;
 use WakeOnWeb\Swagger\Test\Response\SymfonyResponseAdapter;
@@ -62,8 +67,11 @@ $factory->addLoader(new JsonLoader());
 
 $swagger = $factory->buildFrom('/path/to/swagger/file.json');
 
+$contentValidator = new ContentValidator();
+$contentValidator->registerContentValidator(new JValJsonSchemaValidator());
+
 $validator = new SwaggerValidator($swagger);
-$validator->registerContentValidator(new JValJsonSchemaValidator());
+$validator->registerResponseValidator($contentValidator);
 
 $response = new Response(
     '{...}',
