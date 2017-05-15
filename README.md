@@ -88,3 +88,10 @@ try {
     // display $e message.
 }
 ```
+
+
+Limitation
+----------
+
+The Justin Rainbow has a major known limitation. The validator cannot handle recursive models. It is known to be faster 
+and maintained. The stefk/JVal handles recursivity but is slower than the other one.
