@@ -3,6 +3,7 @@
 namespace WakeOnWeb\Swagger\Test;
 
 use InvalidArgumentException;
+use WakeOnWeb\Swagger\Specification\Operation;
 use WakeOnWeb\Swagger\Specification\PathItem;
 use WakeOnWeb\Swagger\Specification\Swagger;
 use WakeOnWeb\Swagger\Test\Exception\ContentTypeException;
@@ -70,53 +71,7 @@ class SwaggerValidator
      */
     public function validateResponseFor(ResponseInterface $actual, $method, $path, $code)
     {
-        $pathItem = $this
-            ->swagger
-            ->getPaths()
-            ->getPathItemFor($path)
-        ;
-
-        switch ($method) {
-            case PathItem::METHOD_GET:
-                $operation = $pathItem->getGet();
-
-                break;
-
-            case PathItem::METHOD_PUT:
-                $operation = $pathItem->getPut();
-
-                break;
-
-            case PathItem::METHOD_POST:
-                $operation = $pathItem->getPost();
-
-                break;
-
-            case PathItem::METHOD_DELETE:
-                $operation = $pathItem->getDelete();
-
-                break;
-
-            case PathItem::METHOD_OPTIONS:
-                $operation = $pathItem->getOptions();
-
-                break;
-
-            case PathItem::METHOD_HEAD:
-                $operation = $pathItem->getHead();
-
-                break;
-
-            case PathItem::METHOD_PATCH:
-                $operation = $pathItem->getPatch();
-
-                break;
-
-            default:
-                throw new InvalidArgumentException(
-                    'The $method argument should be one of the PathItem::METHOD_* constant value.'
-                );
-        }
+        $operation = $this->getOperation($method, $path);
 
         $response = $operation
             ->getResponses()
@@ -127,8 +82,7 @@ class SwaggerValidator
             throw StatusCodeException::fromInvalidStatusCode($code, $actual->getStatusCode());
         }
 
-        // @todo: Inherit.
-        $produces = array_unique(array_merge($this->swagger->getProduces(), $operation->getProduces()));
+        $produces = $operation->getProduces()->getProduces();
 
         if ($actual->getContentType() && !in_array($actual->getContentType(), $produces)) {
             throw ContentTypeException::fromInvalidContentType($actual->getContentType(), $produces);
@@ -152,56 +106,28 @@ class SwaggerValidator
      */
     public function validateRequestFor(RequestInterface $actual, $method, $path)
     {
-        $pathItem = $this
-            ->swagger
-            ->getPaths()
-            ->getPathItemFor($path)
-        ;
-
-        switch ($method) {
-            case PathItem::METHOD_GET:
-                $operation = $pathItem->getGet();
-
-                break;
-
-            case PathItem::METHOD_PUT:
-                $operation = $pathItem->getPut();
-
-                break;
-
-            case PathItem::METHOD_POST:
-                $operation = $pathItem->getPost();
-
-                break;
-
-            case PathItem::METHOD_DELETE:
-                $operation = $pathItem->getDelete();
-
-                break;
-
-            case PathItem::METHOD_OPTIONS:
-                $operation = $pathItem->getOptions();
-
-                break;
-
-            case PathItem::METHOD_HEAD:
-                $operation = $pathItem->getHead();
-
-                break;
-
-            case PathItem::METHOD_PATCH:
-                $operation = $pathItem->getPatch();
-
-                break;
-
-            default:
-                throw new InvalidArgumentException(
-                    'The $method argument should be one of the PathItem::METHOD_* constant value.'
-                );
-        }
+        $operation = $this->getOperation($method, $path);
 
         foreach ($this->requestValidators as $validator) {
             $validator->validateRequest($operation, $actual);
         }
+    }
+
+    /**
+     * @param string $method
+     * @param string $path
+     *
+     * @return Operation|null
+     *
+     * @throws InvalidArgumentException When the given `$method` is not one of the `PathItem::METHOD_*` constant value.
+     */
+    private function getOperation($method, $path)
+    {
+        return $this
+            ->swagger
+            ->getPaths()
+            ->getPathItemFor($path)
+            ->getOperationFor($method)
+        ;
     }
 }

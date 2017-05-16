@@ -2,11 +2,11 @@
 
 namespace WakeOnWeb\Swagger\Test;
 
-use org\bovigo\vfs\vfsStream as Stream;
-use org\bovigo\vfs\vfsStreamDirectory as Directory;
-use org\bovigo\vfs\vfsStreamFile as File;
+use JsonSchema\Constraints\Factory;
+use JsonSchema\SchemaStorage;
+use JsonSchema\Validator;
+use WakeOnWeb\Swagger\Specification\Schema;
 use WakeOnWeb\Swagger\Test\Exception\JsonSchemaException;
-use Webmozart\Json\JsonValidator;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
@@ -14,45 +14,27 @@ use Webmozart\Json\JsonValidator;
 class JustinRainbowJsonSchemaValidator implements ContentValidatorInterface
 {
     /**
-     * @var Directory
-     */
-    private $directory;
-
-    /**
-     * @var JsonValidator
-     */
-    private $jsonValidator;
-
-    /**
-     *
-     */
-    public function __construct()
-    {
-        $this->directory = Stream::setup('swagger');
-        $this->jsonValidator = new JsonValidator();
-    }
-
-    /**
      * {@inheritdoc}
      */
-    public function validateContent($schema, $content)
+    public function validateContent(Schema $schema, $content)
     {
-        $filename = sprintf('%s.json', md5($schema));
+        $schema = json_decode($schema->getJsonSchemaAsJson());
+        $content = json_decode($content);
 
-        if (!$this->directory->hasChild($filename)) {
-            $file = new File($filename);
-            $file->setContent($schema);
+        $schemaStorage = new SchemaStorage();
+        $schemaStorage->addSchema('file://json-schema', $schema);
 
-            $this->directory->addChild($file);
-        }
+        $validator = new Validator(new Factory($schemaStorage));
 
-        $errors = $this
-            ->jsonValidator
-            ->validate(json_decode($content), sprintf('vfs://swagger/%s', $filename))
-        ;
+        $validator->validate($content, $schema);
 
-        if (count($errors)) {
-            throw JsonSchemaException::fromValidationErrors($errors);
+        if (!$validator->isValid()) {
+            throw JsonSchemaException::fromValidationErrors(array_map(
+                function (array $error) {
+                    return $error['message'];
+                },
+                $validator->getErrors()
+            ));
         }
     }
 

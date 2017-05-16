@@ -33,17 +33,17 @@ class Operation
     private $operationId;
 
     /**
-     * @var string[]
+     * @var ConsumesChain
      */
     private $consumes;
 
     /**
-     * @var string[]
+     * @var ProducesChain
      */
     private $produces;
 
     /**
-     * @var AbstractParameter[]
+     * @var ParametersChain
      */
     private $parameters;
 
@@ -73,15 +73,15 @@ class Operation
      * @param string                      $description
      * @param ExternalDocumentation|null  $externalDocs
      * @param string                      $operationId
-     * @param string[]                    $consumes
-     * @param string[]                    $produces
-     * @param AbstractParameter[]         $parameters
+     * @param ConsumesChain               $consumes
+     * @param ProducesChain               $produces
+     * @param ParametersChain             $parameters
      * @param Responses                   $responses
      * @param string[]                    $schemes
      * @param bool                        $deprecated
      * @param SecurityRequirement[]       $security
      */
-    public function __construct(array $tags, $summary, $description, ExternalDocumentation $externalDocs = null, $operationId, array $consumes, array $produces, array $parameters, Responses $responses, array $schemes, $deprecated, array $security)
+    public function __construct(array $tags, $summary, $description, ExternalDocumentation $externalDocs = null, $operationId, ConsumesChain $consumes, ProducesChain $produces, ParametersChain $parameters, Responses $responses, array $schemes, $deprecated, array $security)
     {
         $this->tags = $tags;
         $this->summary = $summary;
@@ -138,7 +138,7 @@ class Operation
     }
 
     /**
-     * @return string[]
+     * @return ConsumesChain
      */
     public function getConsumes()
     {
@@ -146,7 +146,7 @@ class Operation
     }
 
     /**
-     * @return string[]
+     * @return ProducesChain
      */
     public function getProduces()
     {
@@ -154,7 +154,7 @@ class Operation
     }
 
     /**
-     * @return AbstractParameter[]
+     * @return ParametersChain
      */
     public function getParameters()
     {

@@ -2,38 +2,28 @@
 
 namespace WakeOnWeb\Swagger\Specification;
 
-use JsonSerializable;
-
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
  */
-class Definitions implements JsonSerializable
+class Definitions
 {
     /**
-     * @var array
+     * @var Schema[]
      */
-    private $definitions;
+    private $definitions = [];
 
     /**
-     * @param array $definitions
+     * @param Schema[] $definitions
      */
-    public function __construct(array $definitions)
+    public function setDefinitions(array $definitions)
     {
         $this->definitions = $definitions;
     }
 
     /**
-     * @return array
+     * @return Schema[]
      */
     public function getDefinitions()
-    {
-        return $this->definitions;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function jsonSerialize()
     {
         return $this->definitions;
     }

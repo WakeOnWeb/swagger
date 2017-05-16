@@ -2,17 +2,20 @@
 
 namespace WakeOnWeb\Swagger\Specification;
 
-use JsonSerializable;
-
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
  */
-class Schema implements JsonSerializable
+class Schema
 {
     /**
      * @var array
      */
     private $jsonSchema;
+
+    /**
+     * @var Definitions
+     */
+    private $definitions;
 
     /**
      * @var string
@@ -41,15 +44,17 @@ class Schema implements JsonSerializable
 
     /**
      * @param array                      $jsonSchema
+     * @param Definitions                $definitions
      * @param string                     $discriminator
      * @param bool                       $readOnly
      * @param Xml|null                   $xml
      * @param ExternalDocumentation|null $externalDocs
      * @param mixed                      $example
      */
-    public function __construct(array $jsonSchema, $discriminator, $readOnly, Xml $xml = null, ExternalDocumentation $externalDocs = null, $example)
+    public function __construct(array $jsonSchema, Definitions $definitions, $discriminator, $readOnly, Xml $xml = null, ExternalDocumentation $externalDocs = null, $example)
     {
         $this->jsonSchema = $jsonSchema;
+        $this->definitions = $definitions;
         $this->discriminator = $discriminator;
         $this->readOnly = $readOnly;
         $this->xml = $xml;
@@ -70,7 +75,17 @@ class Schema implements JsonSerializable
      */
     public function getJsonSchemaAsJson()
     {
-        return json_encode($this);
+        $definitions = [];
+
+        foreach ($this->definitions->getDefinitions() as $name => $schema) {
+            $definitions[$name] = $schema->getJsonSchema();
+        }
+
+        $schema = $this->jsonSchema + [
+            'definitions' => $definitions
+        ];
+
+        return json_encode($schema);
     }
 
     /**
@@ -111,13 +126,5 @@ class Schema implements JsonSerializable
     public function getExample()
     {
         return $this->example;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function jsonSerialize()
-    {
-        return $this->jsonSchema;
     }
 }

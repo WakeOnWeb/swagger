@@ -33,12 +33,12 @@ class Swagger
     private $schemes;
 
     /**
-     * @var string[]
+     * @var ConsumesChain
      */
     private $consumes;
 
     /**
-     * @var string[]
+     * @var ProducesChain
      */
     private $produces;
 
@@ -88,8 +88,8 @@ class Swagger
      * @param string                     $host
      * @param string                     $basePath
      * @param string[]                   $schemes
-     * @param string[]                   $consumes
-     * @param string[]                   $produces
+     * @param ConsumesChain              $consumes
+     * @param ProducesChain              $produces
      * @param Paths                      $paths
      * @param Definitions                $definitions
      * @param ParametersDefinitions      $parameters
@@ -99,7 +99,7 @@ class Swagger
      * @param Tag[]                      $tags
      * @param ExternalDocumentation|null $externalDocs
      */
-    public function __construct($swagger, Info $info, $host, $basePath, array $schemes, array $consumes, array $produces, Paths $paths, Definitions $definitions, ParametersDefinitions $parameters, ResponsesDefinitions $responses, SecurityDefinitions $securityDefinitions, array $security, array $tags, ExternalDocumentation $externalDocs = null)
+    public function __construct($swagger, Info $info, $host, $basePath, array $schemes, ConsumesChain $consumes, ProducesChain $produces, Paths $paths, Definitions $definitions, ParametersDefinitions $parameters, ResponsesDefinitions $responses, SecurityDefinitions $securityDefinitions, array $security, array $tags, ExternalDocumentation $externalDocs = null)
     {
         $this->swagger = $swagger;
         $this->info = $info;
@@ -159,7 +159,7 @@ class Swagger
     }
 
     /**
-     * @return string[]
+     * @return ConsumesChain
      */
     public function getConsumes()
     {
@@ -167,7 +167,7 @@ class Swagger
     }
 
     /**
-     * @return string[]
+     * @return ProducesChain
      */
     public function getProduces()
     {

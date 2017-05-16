@@ -43,23 +43,23 @@ class SecurityScheme
     private $tokenUrl;
 
     /**
-     * @var Scopes
+     * @var Scopes|null
      */
     private $scopes;
 
     /**
      * Constructor.
      *
-     * @param string $type
-     * @param string $description
-     * @param string $name
-     * @param string $in
-     * @param string $flow
-     * @param string $authorizationUrl
-     * @param string $tokenUrl
-     * @param Scopes $scopes
+     * @param string      $type
+     * @param string      $description
+     * @param string      $name
+     * @param string      $in
+     * @param string      $flow
+     * @param string      $authorizationUrl
+     * @param string      $tokenUrl
+     * @param Scopes|null $scopes
      */
-    public function __construct($type, $description, $name, $in, $flow, $authorizationUrl, $tokenUrl, Scopes $scopes)
+    public function __construct($type, $description, $name, $in, $flow, $authorizationUrl, $tokenUrl, Scopes $scopes = null)
     {
         $this->type = $type;
         $this->description = $description;
@@ -128,7 +128,7 @@ class SecurityScheme
     }
 
     /**
-     * @return Scopes
+     * @return Scopes|null
      */
     public function getScopes()
     {

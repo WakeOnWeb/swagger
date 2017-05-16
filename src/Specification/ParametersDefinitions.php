@@ -10,14 +10,14 @@ class ParametersDefinitions
     /**
      * @var Parameter[]
      */
-    private $parameters;
+    private $parameters = [];
 
     /**
-     * @param Parameter[] $parameters
+     * @param Parameter[] $definitions
      */
-    public function __construct(array $parameters)
+    public function setDefinitions(array $definitions)
     {
-        $this->parameters = $parameters;
+        $this->parameters = $definitions;
     }
 
     /**

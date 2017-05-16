@@ -2,6 +2,7 @@
 
 namespace WakeOnWeb\Swagger\Test;
 
+use WakeOnWeb\Swagger\Specification\Schema;
 use WakeOnWeb\Swagger\Test\Exception\ContentValidatorException;
 
 /**
@@ -10,12 +11,12 @@ use WakeOnWeb\Swagger\Test\Exception\ContentValidatorException;
 interface ContentValidatorInterface
 {
     /**
-     * @param string $schema
+     * @param Schema $schema
      * @param string $content
      *
      * @throws ContentValidatorException
      */
-    public function validateContent($schema, $content);
+    public function validateContent(Schema $schema, $content);
 
     /**
      * @param string $mimeType

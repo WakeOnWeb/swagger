@@ -2,6 +2,8 @@
 
 namespace WakeOnWeb\Swagger\Specification;
 
+use InvalidArgumentException;
+
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
  */
@@ -51,23 +53,23 @@ class PathItem
     private $patch;
 
     /**
-     * @var BodyAbstractParameter[]|Reference[]
+     * @var ParametersChain
      */
     private $parameters;
 
     /**
      * PathItem constructor.
      *
-     * @param Operation|null                      $get
-     * @param Operation|null                      $put
-     * @param Operation|null                      $post
-     * @param Operation|null                      $delete
-     * @param Operation|null                      $options
-     * @param Operation|null                      $head
-     * @param Operation|null                      $patch
-     * @param BodyAbstractParameter[]|Reference[] $parameters
+     * @param Operation|null  $get
+     * @param Operation|null  $put
+     * @param Operation|null  $post
+     * @param Operation|null  $delete
+     * @param Operation|null  $options
+     * @param Operation|null  $head
+     * @param Operation|null  $patch
+     * @param ParametersChain $parameters
      */
-    public function __construct(Operation $get = null, Operation $put = null, Operation $post = null, Operation $delete = null, Operation $options = null, Operation $head = null, Operation $patch = null, array $parameters)
+    public function __construct(Operation $get = null, Operation $put = null, Operation $post = null, Operation $delete = null, Operation $options = null, Operation $head = null, Operation $patch = null, ParametersChain $parameters)
     {
         $this->get = $get;
         $this->put = $put;
@@ -136,10 +138,48 @@ class PathItem
     }
 
     /**
-     * @return BodyAbstractParameter[]|Reference[]
+     * @return ParametersChain
      */
     public function getParameters()
     {
         return $this->parameters;
+    }
+
+    /**
+     * @param string $method
+     *
+     * @return Operation|null
+     *
+     * @throws InvalidArgumentException When the given `$method` is not one of the `PathItem::METHOD_*` constant value.
+     */
+    public function getOperationFor($method)
+    {
+        switch ($method) {
+            case self::METHOD_GET:
+                return $this->getGet();
+
+            case self::METHOD_PUT:
+                return $this->getPut();
+
+            case self::METHOD_POST:
+                return $this->getPost();
+
+            case self::METHOD_DELETE:
+                return $this->getDelete();
+
+            case self::METHOD_OPTIONS:
+                return $this->getOptions();
+
+            case self::METHOD_HEAD:
+                return $this->getHead();
+
+            case self::METHOD_PATCH:
+                return $this->getPatch();
+
+            default:
+                throw new InvalidArgumentException(
+                    'The $method argument should be one of the PathItem::METHOD_* constant value.'
+                );
+        }
     }
 }

@@ -52,10 +52,16 @@ class Responses
     {
         $code = (string) $code;
 
+        $response = $this->default;
+
         if (isset($this->responses[$code])) {
-            return $this->responses[$code];
+            $response = $this->responses[$code];
         }
 
-        return $this->default;
+        if ($response instanceof ResponseReference) {
+            $response = $response->resolve();
+        }
+
+        return $response;
     }
 }

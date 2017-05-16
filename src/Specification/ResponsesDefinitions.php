@@ -10,14 +10,14 @@ class ResponsesDefinitions
     /**
      * @var Response[]
      */
-    private $responses;
+    private $responses = [];
 
     /**
-     * @param Response[] $responses
+     * @param Response[] $definitions
      */
-    public function __construct(array $responses)
+    public function setDefinitions(array $definitions)
     {
-        $this->responses = $responses;
+        $this->responses = $definitions;
     }
 
     /**
@@ -28,5 +28,13 @@ class ResponsesDefinitions
     public function getResponse($name)
     {
         return $this->responses[$name];
+    }
+
+    /**
+     * @return Response[]
+     */
+    public function getResponses()
+    {
+        return $this->responses;
     }
 }

@@ -36,9 +36,6 @@ class ContentValidator implements ResponseValidatorInterface, RequestValidatorIn
             return;
         }
 
-        // @todo: Handle the case where the schema is an XSD.
-        $schema = $schema->getJsonSchemaAsJson();
-
         foreach ($this->contentValidators as $contentValidator) {
             if ($contentValidator->support($actual->getContentType())) {
                 $contentValidator->validateContent($schema, $actual->getBody());
@@ -62,9 +59,6 @@ class ContentValidator implements ResponseValidatorInterface, RequestValidatorIn
         if (!$schema) {
             return;
         }
-
-        // @todo: Handle the case where the schema is an XSD.
-        $schema = $schema->getJsonSchemaAsJson();
 
         foreach ($this->contentValidators as $contentValidator) {
             if ($contentValidator->support($actual->getContentType())) {
