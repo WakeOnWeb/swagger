@@ -1,10 +1,10 @@
 <?php
 
-namespace WakeOnWeb\Swagger\Test;
+namespace WakeOnWeb\Component\Swagger\Test;
 
-use WakeOnWeb\Swagger\Specification\Operation;
-use WakeOnWeb\Swagger\Test\Exception\SwaggerValidatorException;
-use WakeOnWeb\Swagger\Test\Request\RequestInterface;
+use WakeOnWeb\Component\Swagger\Specification\Operation;
+use WakeOnWeb\Component\Swagger\Test\Exception\SwaggerValidatorException;
+use WakeOnWeb\Component\Swagger\Test\Request\RequestInterface;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>

@@ -1,12 +1,12 @@
 <?php
 
-namespace WakeOnWeb\Swagger\Test;
+namespace WakeOnWeb\Component\Swagger\Test;
 
 use JsonSchema\Constraints\Factory;
 use JsonSchema\SchemaStorage;
 use JsonSchema\Validator;
-use WakeOnWeb\Swagger\Specification\Schema;
-use WakeOnWeb\Swagger\Test\Exception\JsonSchemaException;
+use WakeOnWeb\Component\Swagger\Specification\Schema;
+use WakeOnWeb\Component\Swagger\Test\Exception\JsonSchemaException;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>

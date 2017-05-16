@@ -1,16 +1,16 @@
 <?php
 
-namespace WakeOnWeb\Swagger\Test;
+namespace WakeOnWeb\Component\Swagger\Test;
 
 use InvalidArgumentException;
-use WakeOnWeb\Swagger\Specification\Operation;
-use WakeOnWeb\Swagger\Specification\PathItem;
-use WakeOnWeb\Swagger\Specification\Swagger;
-use WakeOnWeb\Swagger\Test\Exception\ContentTypeException;
-use WakeOnWeb\Swagger\Test\Exception\StatusCodeException;
-use WakeOnWeb\Swagger\Test\Exception\SwaggerValidatorException;
-use WakeOnWeb\Swagger\Test\Request\RequestInterface;
-use WakeOnWeb\Swagger\Test\Response\ResponseInterface;
+use WakeOnWeb\Component\Swagger\Specification\Operation;
+use WakeOnWeb\Component\Swagger\Specification\PathItem;
+use WakeOnWeb\Component\Swagger\Specification\Swagger;
+use WakeOnWeb\Component\Swagger\Test\Exception\ContentTypeException;
+use WakeOnWeb\Component\Swagger\Test\Exception\StatusCodeException;
+use WakeOnWeb\Component\Swagger\Test\Exception\SwaggerValidatorException;
+use WakeOnWeb\Component\Swagger\Test\Request\RequestInterface;
+use WakeOnWeb\Component\Swagger\Test\Response\ResponseInterface;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>

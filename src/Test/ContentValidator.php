@@ -1,11 +1,11 @@
 <?php
 
-namespace WakeOnWeb\Swagger\Test;
+namespace WakeOnWeb\Component\Swagger\Test;
 
-use WakeOnWeb\Swagger\Specification\Operation;
-use WakeOnWeb\Swagger\Specification\Response;
-use WakeOnWeb\Swagger\Test\Request\RequestInterface;
-use WakeOnWeb\Swagger\Test\Response\ResponseInterface;
+use WakeOnWeb\Component\Swagger\Specification\Operation;
+use WakeOnWeb\Component\Swagger\Specification\Response;
+use WakeOnWeb\Component\Swagger\Test\Request\RequestInterface;
+use WakeOnWeb\Component\Swagger\Test\Response\ResponseInterface;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>

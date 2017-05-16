@@ -10,14 +10,14 @@ Basic usage with YAML Swagger File
 <?php
 
 use Symfony\Component\HttpFoundation\Response;
-use WakeOnWeb\Swagger\Specification\PathItem;
-use WakeOnWeb\Swagger\SwaggerFactory;
-use WakeOnWeb\Swagger\Loader\YamlLoader;
-use WakeOnWeb\Swagger\Test\ContentValidator;
-use WakeOnWeb\Swagger\Test\Exception\SwaggerValidatorException;
-use WakeOnWeb\Swagger\Test\JValJsonSchemaValidator;
-use WakeOnWeb\Swagger\Test\Response\SymfonyResponseAdapter;
-use WakeOnWeb\Swagger\Test\SwaggerValidator;
+use WakeOnWeb\Component\Swagger\Specification\PathItem;
+use WakeOnWeb\Component\Swagger\SwaggerFactory;
+use WakeOnWeb\Component\Swagger\Loader\YamlLoader;
+use WakeOnWeb\Component\Swagger\Test\ContentValidator;
+use WakeOnWeb\Component\Swagger\Test\Exception\SwaggerValidatorException;
+use WakeOnWeb\Component\Swagger\Test\JustinRainbowJsonSchemaValidator;
+use WakeOnWeb\Component\Swagger\Test\Response\SymfonyResponseAdapter;
+use WakeOnWeb\Component\Swagger\Test\SwaggerValidator;
 
 $factory = new SwaggerFactory();
 $factory->addLoader(new YamlLoader());
@@ -25,7 +25,7 @@ $factory->addLoader(new YamlLoader());
 $swagger = $factory->buildFrom('/path/to/swagger/file.yml');
 
 $contentValidator = new ContentValidator();
-$contentValidator->registerContentValidator(new JValJsonSchemaValidator());
+$contentValidator->registerContentValidator(new JustinRainbowJsonSchemaValidator());
 
 $validator = new SwaggerValidator($swagger);
 $validator->registerResponseValidator($contentValidator);
@@ -53,14 +53,14 @@ Basic usage with JSON Swagger File
 <?php
 
 use Symfony\Component\HttpFoundation\Response;
-use WakeOnWeb\Swagger\Specification\PathItem;
-use WakeOnWeb\Swagger\SwaggerFactory;
-use WakeOnWeb\Swagger\Loader\JsonLoader;
-use WakeOnWeb\Swagger\Test\ContentValidator;
-use WakeOnWeb\Swagger\Test\Exception\SwaggerValidatorException;
-use WakeOnWeb\Swagger\Test\JValJsonSchemaValidator;
-use WakeOnWeb\Swagger\Test\Response\SymfonyResponseAdapter;
-use WakeOnWeb\Swagger\Test\SwaggerValidator;
+use WakeOnWeb\Component\Swagger\Specification\PathItem;
+use WakeOnWeb\Component\Swagger\SwaggerFactory;
+use WakeOnWeb\Component\Swagger\Loader\JsonLoader;
+use WakeOnWeb\Component\Swagger\Test\ContentValidator;
+use WakeOnWeb\Component\Swagger\Test\Exception\SwaggerValidatorException;
+use WakeOnWeb\Component\Swagger\Test\JustinRainbowJsonSchemaValidator;
+use WakeOnWeb\Component\Swagger\Test\Response\SymfonyResponseAdapter;
+use WakeOnWeb\Component\Swagger\Test\SwaggerValidator;
 
 $factory = new SwaggerFactory();
 $factory->addLoader(new JsonLoader());
@@ -68,7 +68,7 @@ $factory->addLoader(new JsonLoader());
 $swagger = $factory->buildFrom('/path/to/swagger/file.json');
 
 $contentValidator = new ContentValidator();
-$contentValidator->registerContentValidator(new JValJsonSchemaValidator());
+$contentValidator->registerContentValidator(new JustinRainbowJsonSchemaValidator());
 
 $validator = new SwaggerValidator($swagger);
 $validator->registerResponseValidator($contentValidator);
@@ -88,10 +88,3 @@ try {
     // display $e message.
 }
 ```
-
-
-Limitation
-----------
-
-The Justin Rainbow has a major known limitation. The validator cannot handle recursive models. It is known to be faster 
-and maintained. The stefk/JVal handles recursivity but is slower than the other one.

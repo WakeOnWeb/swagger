@@ -1,9 +1,9 @@
 <?php
 
-namespace WakeOnWeb\Swagger\Test;
+namespace WakeOnWeb\Component\Swagger\Test;
 
-use WakeOnWeb\Swagger\Specification\Schema;
-use WakeOnWeb\Swagger\Test\Exception\ContentValidatorException;
+use WakeOnWeb\Component\Swagger\Specification\Schema;
+use WakeOnWeb\Component\Swagger\Test\Exception\ContentValidatorException;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>

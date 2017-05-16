@@ -1,11 +1,10 @@
 <?php
 
-namespace WakeOnWeb\Swagger\Loader;
+namespace WakeOnWeb\Component\Swagger\Loader;
 
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
-use WakeOnWeb\Swagger\Loader\Exception\LoaderException;
+use WakeOnWeb\Component\Swagger\Loader\Exception\LoaderException;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>

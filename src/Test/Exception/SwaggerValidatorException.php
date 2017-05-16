@@ -1,6 +1,6 @@
 <?php
 
-namespace WakeOnWeb\Swagger\Test\Exception;
+namespace WakeOnWeb\Component\Swagger\Test\Exception;
 
 use Exception;
 

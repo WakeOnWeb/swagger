@@ -1,6 +1,6 @@
 <?php
 
-namespace WakeOnWeb\Swagger\Exception;
+namespace WakeOnWeb\Component\Swagger\Exception;
 
 use InvalidArgumentException;
 

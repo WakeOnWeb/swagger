@@ -29,12 +29,12 @@
     },
     "autoload": {
         "psr-4": {
-            "WakeOnWeb\\Swagger\\": "src"
+            "WakeOnWeb\\Component\\Swagger\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "WakeOnWeb\\Swagger\\Tests\\": "tests"
+            "WakeOnWeb\\component\\Swagger\\Tests\\": "tests"
         }
     },
     "suggest": {
