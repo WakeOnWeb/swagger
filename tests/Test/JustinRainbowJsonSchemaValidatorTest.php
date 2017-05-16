@@ -2,9 +2,11 @@
 
 namespace WakeOnWeb\Component\Swagger\Tests;
 
+use Psr\Http\Message\MessageInterface;
 use WakeOnWeb\Component\Swagger\Specification\Definitions;
 use WakeOnWeb\Component\Swagger\Specification\Schema;
 use WakeOnWeb\Component\Swagger\Test\JustinRainbowJsonSchemaValidator;
+use Zend\Diactoros\Response\JsonResponse;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
@@ -45,7 +47,7 @@ JSON;
 JSON;
 
         $validator = new JustinRainbowJsonSchemaValidator();
-        $validator->validateContent($this->buildSchema($schema), $content);
+        $validator->validateContent($this->buildSchema($schema), $this->buildMessage($content));
     }
 
     /**
@@ -94,7 +96,7 @@ JSON;
 JSON;
 
         $validator = new JustinRainbowJsonSchemaValidator();
-        $validator->validateContent($this->buildSchema($schema), $content);
+        $validator->validateContent($this->buildSchema($schema), $this->buildMessage($content));
     }
 
     /**
@@ -121,7 +123,7 @@ JSON;
 JSON;
 
         $validator = new JustinRainbowJsonSchemaValidator();
-        $validator->validateContent($this->buildSchema($schema), $content);
+        $validator->validateContent($this->buildSchema($schema), $this->buildMessage($content));
     }
 
     /**
@@ -132,5 +134,15 @@ JSON;
     private function buildSchema($schema)
     {
         return new Schema(json_decode($schema, true), new Definitions(), null, null, null, null, null);
+    }
+
+    /**
+     * @param $content
+     *
+     * @return MessageInterface
+     */
+    private function buildMessage($content)
+    {
+        return new JsonResponse(json_decode($content));
     }
 }

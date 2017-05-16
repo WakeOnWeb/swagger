@@ -8,16 +8,16 @@ namespace WakeOnWeb\Component\Swagger\Test\Exception;
 class ContentTypeException extends SwaggerValidatorException
 {
     /**
-     * @param string $actual
-     * @param array  $expected
+     * @param string[] $actual
+     * @param string[] $expected
      *
      * @return ContentTypeException
      */
-    public static function fromInvalidContentType($actual, array $expected)
+    public static function fromInvalidContentType(array $actual, array $expected)
     {
         return new self(sprintf(
-            'The response "Content-Type" is invalid. The type "%s" is not one of the allowed types (%s).',
-            $actual,
+            'The response "Content-Type" is invalid. The type(s) %s is/are not one of the allowed types (%s).',
+            implode(', ', $actual),
             implode(', ', $expected)
         ));
     }

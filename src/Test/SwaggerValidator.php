@@ -3,14 +3,13 @@
 namespace WakeOnWeb\Component\Swagger\Test;
 
 use InvalidArgumentException;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use WakeOnWeb\Component\Swagger\Specification\Operation;
-use WakeOnWeb\Component\Swagger\Specification\PathItem;
 use WakeOnWeb\Component\Swagger\Specification\Swagger;
 use WakeOnWeb\Component\Swagger\Test\Exception\ContentTypeException;
 use WakeOnWeb\Component\Swagger\Test\Exception\StatusCodeException;
 use WakeOnWeb\Component\Swagger\Test\Exception\SwaggerValidatorException;
-use WakeOnWeb\Component\Swagger\Test\Request\RequestInterface;
-use WakeOnWeb\Component\Swagger\Test\Response\ResponseInterface;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
@@ -84,8 +83,10 @@ class SwaggerValidator
 
         $produces = $operation->getProduces()->getProduces();
 
-        if ($actual->getContentType() && !in_array($actual->getContentType(), $produces)) {
-            throw ContentTypeException::fromInvalidContentType($actual->getContentType(), $produces);
+        $contentType = $actual->getHeader('Content-Type');
+
+        if (!array_intersect($contentType, $produces)) {
+            throw ContentTypeException::fromInvalidContentType($contentType, $produces);
         }
 
         foreach ($this->responseValidators as $validator) {

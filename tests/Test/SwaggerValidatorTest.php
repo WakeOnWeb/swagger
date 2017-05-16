@@ -2,10 +2,10 @@
 
 namespace WakeOnWeb\Component\Swagger\Tests;
 
+use Psr\Http\Message\ResponseInterface;
 use WakeOnWeb\Component\Swagger\Specification\PathItem;
 use WakeOnWeb\Component\Swagger\Specification\Swagger;
 use WakeOnWeb\Component\Swagger\SwaggerFactory;
-use WakeOnWeb\Component\Swagger\Test\Response\ResponseInterface;
 use WakeOnWeb\Component\Swagger\Test\SwaggerValidator;
 
 /**
@@ -44,7 +44,7 @@ JSON;
 
         $prophecy = $this->prophesize(ResponseInterface::class);
         $prophecy->getStatusCode()->willReturn(200);
-        $prophecy->getContentType()->willReturn('application/json');
+        $prophecy->getHeader('Content-Type')->willReturn(['application/json']);
 
         $validator = new SwaggerValidator($this->buildSwagger($swagger));
         $validator->validateResponseFor($prophecy->reveal(), PathItem::METHOD_GET, '/tests', 200);
@@ -81,8 +81,8 @@ JSON;
 JSON;
 
         $prophecy = $this->prophesize(ResponseInterface::class);
-        $prophecy->getStatusCode()->willReturn(500);
-        $prophecy->getContentType()->willReturn('application/json');
+        $prophecy->getStatusCode()->willReturn(400);
+        $prophecy->getHeader('Content-Type')->willReturn(['application/json']);
 
         $validator = new SwaggerValidator($this->buildSwagger($swagger));
         $validator->validateResponseFor($prophecy->reveal(), PathItem::METHOD_GET, '/tests', 200);
@@ -120,7 +120,7 @@ JSON;
 
         $prophecy = $this->prophesize(ResponseInterface::class);
         $prophecy->getStatusCode()->willReturn(200);
-        $prophecy->getContentType()->willReturn('application/xml');
+        $prophecy->getHeader('Content-Type')->willReturn(['application/xml']);
 
         $validator = new SwaggerValidator($this->buildSwagger($swagger));
         $validator->validateResponseFor($prophecy->reveal(), PathItem::METHOD_GET, '/tests', 200);

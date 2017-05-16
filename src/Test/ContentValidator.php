@@ -2,10 +2,10 @@
 
 namespace WakeOnWeb\Component\Swagger\Test;
 
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use WakeOnWeb\Component\Swagger\Specification\Operation;
 use WakeOnWeb\Component\Swagger\Specification\Response;
-use WakeOnWeb\Component\Swagger\Test\Request\RequestInterface;
-use WakeOnWeb\Component\Swagger\Test\Response\ResponseInterface;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
@@ -37,8 +37,10 @@ class ContentValidator implements ResponseValidatorInterface, RequestValidatorIn
         }
 
         foreach ($this->contentValidators as $contentValidator) {
-            if ($contentValidator->support($actual->getContentType())) {
-                $contentValidator->validateContent($schema, $actual->getBody());
+            foreach ($actual->getHeader('Content-Type') as $contentType) {
+                if ($contentValidator->support($contentType)) {
+                    $contentValidator->validateContent($schema, $actual);
+                }
             }
         }
     }
@@ -61,8 +63,10 @@ class ContentValidator implements ResponseValidatorInterface, RequestValidatorIn
         }
 
         foreach ($this->contentValidators as $contentValidator) {
-            if ($contentValidator->support($actual->getContentType())) {
-                $contentValidator->validateContent($schema, $actual->getBody());
+            foreach ($actual->getHeader('Content-Type') as $contentType) {
+                if ($contentValidator->support($contentType)) {
+                    $contentValidator->validateContent($schema, $actual);
+                }
             }
         }
     }

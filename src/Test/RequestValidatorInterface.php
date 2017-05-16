@@ -2,9 +2,9 @@
 
 namespace WakeOnWeb\Component\Swagger\Test;
 
+use Psr\Http\Message\RequestInterface;
 use WakeOnWeb\Component\Swagger\Specification\Operation;
 use WakeOnWeb\Component\Swagger\Test\Exception\SwaggerValidatorException;
-use WakeOnWeb\Component\Swagger\Test\Request\RequestInterface;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
