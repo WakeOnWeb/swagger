@@ -93,23 +93,23 @@ class Items
     private $multipleOf;
 
     /**
-     * @param string      $type
-     * @param string      $format
-     * @param Items|null  $items
-     * @param string      $collectionFormat
-     * @param mixed       $default
-     * @param int         $maximum
-     * @param bool        $exclusiveMaximum
-     * @param int         $minimum
-     * @param bool        $exclusiveMinimum
-     * @param int         $maxLength
-     * @param int         $minLength
-     * @param string      $pattern
-     * @param int         $maxItems
-     * @param int         $minItems
-     * @param bool        $uniqueItems
-     * @param array|null  $enum
-     * @param int         $multipleOf
+     * @param string     $type
+     * @param string     $format
+     * @param Items|null $items
+     * @param string     $collectionFormat
+     * @param mixed      $default
+     * @param int        $maximum
+     * @param bool       $exclusiveMaximum
+     * @param int        $minimum
+     * @param bool       $exclusiveMinimum
+     * @param int        $maxLength
+     * @param int        $minLength
+     * @param string     $pattern
+     * @param int        $maxItems
+     * @param int        $minItems
+     * @param bool       $uniqueItems
+     * @param array|null $enum
+     * @param int        $multipleOf
      */
     public function __construct($type, $format, Items $items = null, $collectionFormat, $default, $maximum, $exclusiveMaximum, $minimum, $exclusiveMinimum, $maxLength, $minLength, $pattern, $maxItems, $minItems, $uniqueItems, array $enum = null, $multipleOf)
     {

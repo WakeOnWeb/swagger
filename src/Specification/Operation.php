@@ -68,18 +68,18 @@ class Operation
     private $security;
 
     /**
-     * @param string[]                    $tags
-     * @param string                      $summary
-     * @param string                      $description
-     * @param ExternalDocumentation|null  $externalDocs
-     * @param string                      $operationId
-     * @param ConsumesChain               $consumes
-     * @param ProducesChain               $produces
-     * @param ParametersChain             $parameters
-     * @param Responses                   $responses
-     * @param string[]                    $schemes
-     * @param bool                        $deprecated
-     * @param SecurityRequirement[]       $security
+     * @param string[]                   $tags
+     * @param string                     $summary
+     * @param string                     $description
+     * @param ExternalDocumentation|null $externalDocs
+     * @param string                     $operationId
+     * @param ConsumesChain              $consumes
+     * @param ProducesChain              $produces
+     * @param ParametersChain            $parameters
+     * @param Responses                  $responses
+     * @param string[]                   $schemes
+     * @param bool                       $deprecated
+     * @param SecurityRequirement[]      $security
      */
     public function __construct(array $tags, $summary, $description, ExternalDocumentation $externalDocs = null, $operationId, ConsumesChain $consumes, ProducesChain $produces, ParametersChain $parameters, Responses $responses, array $schemes, $deprecated, array $security)
     {
