@@ -104,11 +104,11 @@ $request = new Request(...);
 $psr7Factory = new DiactorosFactory();
 
 // Converts the response to a PRS-7 compliant format.
-$response = $psr7Factory->createRequest($request);
+$request = $psr7Factory->createRequest($request);
 
 try {
-    // Validates the response against the required specification.
-    $validator->validateRequestFor($response, PathItem::METHOD_GET, '/api/resource', 200);
+    // Validates the request against the required specification.
+    $validator->validateRequestFor($request, PathItem::METHOD_GET, '/api/resource');
 } catch (SwaggerValidatorException $e) {
     // display $e message.
 }
