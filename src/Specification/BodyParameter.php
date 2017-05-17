@@ -19,7 +19,7 @@ class BodyParameter extends AbstractParameter
      * @param bool        $required
      * @param Schema      $schema
      */
-    public function __construct($name, $in, $description = null, $required, Schema $schema)
+    public function __construct($name, $in, $description = null, $required, Schema $schema) //@codingStandardsIgnoreLine
     {
         parent::__construct($name, $in, $description, $required);
 
