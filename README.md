@@ -1,7 +1,7 @@
 # WakeOnWeb Swagger Validation Component [![Build Status](https://travis-ci.org/WakeOnWeb/swagger.svg?branch=master)](https://travis-ci.org/WakeOnWeb/swagger)
 
 The WakeOnWeb Swagger Validation Component is an extensible component for validating API data using the 
-[Swagger - OpenAPI](http://swagger.io)] specification. The component supports both YAML and JSON Open API file formats. 
+[Swagger - OpenAPI](http://swagger.io) specification. The component supports both YAML and JSON Open API file formats. 
 The component has very a small dependency set in order to be usable in different PHP frameworks.
 
 The component uses:
