@@ -16,7 +16,7 @@ The component can easily be installaed using
 
     composer require wakeonweb/swagger
     
-The component uses a JSON Schema validator, by default, the [justinrainbow/json-schema] (https://github.com/justinrainbow/json-schema) 
+The component uses a JSON Schema validator, by default, the [justinrainbow/json-schema](https://github.com/justinrainbow/json-schema) 
 is in the dev dependencies. If you intend to use the component in production you need to execute:
 
     composer require justinrainbow/json-schema
