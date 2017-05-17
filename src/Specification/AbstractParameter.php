@@ -35,7 +35,7 @@ abstract class AbstractParameter
      * @param string|null $description
      * @param bool        $required
      */
-    public function __construct($name, $in, $description = null, $required)
+    public function __construct($name, $in, $description = null, $required) // @codingStandardsIgnoreLine
     {
         $this->name = $name;
         $this->in = $in;

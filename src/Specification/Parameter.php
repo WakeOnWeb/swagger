@@ -121,7 +121,7 @@ class Parameter extends AbstractParameter
      * @param array|null  $enum
      * @param int         $multipleOf
      */
-    public function __construct($name, $in, $description = null, $required, $type, $format, $allowEmptyValue, Items $items = null, $collectionFormat, $default, $maximum, $exclusiveMaximum, $minimum, $exclusiveMinimum, $maxLength, $minLength, $pattern, $maxItems, $minItems, $uniqueItems, array $enum = null, $multipleOf)
+    public function __construct($name, $in, $description = null, $required, $type, $format, $allowEmptyValue, Items $items = null, $collectionFormat, $default, $maximum, $exclusiveMaximum, $minimum, $exclusiveMinimum, $maxLength, $minLength, $pattern, $maxItems, $minItems, $uniqueItems, array $enum = null, $multipleOf) //@codingStandardsIgnoreLine
     {
         parent::__construct($name, $in, $description, $required);
 

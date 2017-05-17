@@ -18,7 +18,7 @@ class ParameterReference
     private $parameters;
 
     /**
-     * @param string               $ref
+     * @param string                $ref
      * @param ParametersDefinitions $parameters
      */
     public function __construct($ref, ParametersDefinitions $parameters)
