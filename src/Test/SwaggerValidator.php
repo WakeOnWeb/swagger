@@ -85,7 +85,7 @@ class SwaggerValidator
 
         $contentType = $actual->getHeader('Content-Type');
 
-        if (!array_intersect($contentType, $produces)) {
+        if ($this->statusCodeMeetRequirements($code) && !array_intersect($contentType, $produces)) {
             throw ContentTypeException::fromInvalidContentType($contentType, $produces);
         }
 
@@ -131,4 +131,17 @@ class SwaggerValidator
             ->getOperationFor($method)
         ;
     }
+
+    /**
+     * Checks whether the status code is not 204 or 304 or is not in the informational range. Such responses does not
+     * have any content nor Content-Type headers.
+     *
+     * @param int $code
+     *
+     * @return bool
+     */
+    private function statusCodeMeetRequirements($code)
+    {
+        return !in_array($code, [204, 304]) && substr((string) $code, 0, 1) !== '1';
+    }
 }
