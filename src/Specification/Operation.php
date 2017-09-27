@@ -166,7 +166,7 @@ class Operation
      */
     public function getBodyParameter()
     {
-        foreach ($this->parameters as $parameter) {
+        foreach ($this->parameters->getParameters() as $parameter) {
             if ($parameter->getIn() === 'body') {
                 return $parameter;
             }
