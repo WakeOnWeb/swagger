@@ -10,6 +10,7 @@ use WakeOnWeb\Component\Swagger\Specification\Swagger;
 use WakeOnWeb\Component\Swagger\Test\Exception\ContentTypeException;
 use WakeOnWeb\Component\Swagger\Test\Exception\StatusCodeException;
 use WakeOnWeb\Component\Swagger\Test\Exception\SwaggerValidatorException;
+use WakeOnWeb\Component\Swagger\Test\Exception\UnknownResponseCodeException;
 use WakeOnWeb\Component\Swagger\Test\Exception\UnknownPathException;
 
 /**
@@ -77,6 +78,11 @@ class SwaggerValidator
             ->getResponses()
             ->getResponseFor($code)
         ;
+
+        // In this case, the response given to us is not on the schema
+        if ($response === null) {
+            throw UnknownResponseCodeException::fromUnknownStatusCode($code);
+        }
 
         if ($actual->getStatusCode() !== $code) {
             throw StatusCodeException::fromInvalidStatusCode($code, $actual->getStatusCode());

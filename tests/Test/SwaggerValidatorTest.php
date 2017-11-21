@@ -90,6 +90,45 @@ JSON;
 
     /**
      * @test
+     * @expectedException \WakeOnWeb\Component\Swagger\Test\Exception\UnknownResponseCodeException
+     */
+    public function testValidateResponseForThrowsAnExceptionWhenTheStatusCodeIsNotOnTheSchema()
+    {
+        $swagger = <<<JSON
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "test",
+        "version": "1.0"
+    },
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/tests": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Get the list of all the tests cases."
+                    }
+                }
+            }
+        }
+    }
+}
+JSON;
+
+        $code = 400;
+        $prophecy = $this->prophesize(ResponseInterface::class);
+        $prophecy->getStatusCode()->willReturn($code);
+        $prophecy->getHeader('Content-Type')->willReturn(['application/json']);
+
+        $validator = new SwaggerValidator($this->buildSwagger($swagger));
+        $validator->validateResponseFor($prophecy->reveal(), PathItem::METHOD_GET, '/tests', $code);
+    }
+
+    /**
+     * @test
      * @expectedException \WakeOnWeb\Component\Swagger\Test\Exception\ContentTypeException
      */
     public function testValidateResponseForThrowsAnExceptionWhenTheContentTypeIsInvalid()
