@@ -35,6 +35,8 @@ class Paths
      */
     public function getPathItemFor($path)
     {
-        return $this->paths[$path];
+        if (array_key_exists($path, $this->paths) === true) {
+            return $this->paths[$path];
+        }
     }
 }

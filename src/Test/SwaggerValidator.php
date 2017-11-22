@@ -10,6 +10,7 @@ use WakeOnWeb\Component\Swagger\Specification\Swagger;
 use WakeOnWeb\Component\Swagger\Test\Exception\ContentTypeException;
 use WakeOnWeb\Component\Swagger\Test\Exception\StatusCodeException;
 use WakeOnWeb\Component\Swagger\Test\Exception\SwaggerValidatorException;
+use WakeOnWeb\Component\Swagger\Test\Exception\UnknownPathException;
 
 /**
  * @author Quentin Schuler <q.schuler@wakeonweb.com>
@@ -118,18 +119,23 @@ class SwaggerValidator
      * @param string $method
      * @param string $path
      *
-     * @return Operation|null
+     * @return null|Operation
      *
+     * @throws SwaggerValidatorException
      * @throws InvalidArgumentException When the given `$method` is not one of the `PathItem::METHOD_*` constant value.
      */
     private function getOperation($method, $path)
     {
-        return $this
+        $pathItem = $this
             ->swagger
             ->getPaths()
-            ->getPathItemFor($path)
-            ->getOperationFor($method)
-        ;
+            ->getPathItemFor($path);
+
+        if ($pathItem === null) {
+            throw UnknownPathException::fromUnknownPath($path);
+        }
+
+        return $pathItem->getOperationFor($method);
     }
 
     /**

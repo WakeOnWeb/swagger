@@ -128,6 +128,45 @@ JSON;
 
     /**
      * @test
+     * @expectedException \WakeOnWeb\Component\Swagger\Test\Exception\UnknownPathException
+     */
+    public function testValidateResponseForThrowsAnExceptionWhenPathIsNotOnSchema()
+    {
+        $swagger = <<<JSON
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "test",
+        "version": "1.0"
+    },
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/tests": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Get the list of all the tests cases."
+                    }
+                }
+            }
+        }
+    }
+}
+JSON;
+
+        $code = 200;
+        $prophecy = $this->prophesize(ResponseInterface::class);
+        $prophecy->getStatusCode()->willReturn($code);
+        $prophecy->getHeader('Content-Type')->willReturn(['application/json']);
+
+        $validator = new SwaggerValidator($this->buildSwagger($swagger));
+        $validator->validateResponseFor($prophecy->reveal(), PathItem::METHOD_GET, '/foobar', $code);
+    }
+
+    /**
+     * @test
      * @expectedException \InvalidArgumentException
      */
     public function testValidateResponseForThrowsAnExceptionWhenTheMethodIsNotSupported()
