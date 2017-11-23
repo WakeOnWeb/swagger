@@ -31,12 +31,10 @@ class Paths
     /**
      * @param string $path
      *
-     * @return PathItem
+     * @return PathItem|null
      */
     public function getPathItemFor($path)
     {
-        if (array_key_exists($path, $this->paths) === true) {
-            return $this->paths[$path];
-        }
+        return isset($this->paths[$path]) ? $this->paths[$path]: null;
     }
 }
