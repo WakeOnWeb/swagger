@@ -911,7 +911,7 @@ class SwaggerFactory
         $externalDocs = $this->get($spec, 'externalDocs');
 
         if ($externalDocs !== null) {
-            $externalDocs = $this->parseExternalDocumentation($spec, $chains);
+            $externalDocs = $this->parseExternalDocumentation($externalDocs, $chains);
         }
 
         return new Tag($name, $description, $externalDocs);
