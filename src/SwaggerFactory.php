@@ -540,7 +540,8 @@ class SwaggerFactory
 
         if ($default !== null) {
             if ($this->isReference($default)) {
-                $default = new ResponseReference($default['$ref'], $chains['responses_definitions']);
+                $defaultResponseReference = new ResponseReference($default['$ref'], $chains['responses_definitions']);
+                $default = $defaultResponseReference->resolve();
             } else {
                 $default = $this->parseResponse($default, $chains);
             }
@@ -562,7 +563,7 @@ class SwaggerFactory
             }
         }
 
-        return new Responses($default->resolve(), $responses);
+        return new Responses($default, $responses);
     }
 
     /**
