@@ -30,7 +30,8 @@
         "zendframework/zend-diactoros": "~1.4"
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "sort-packages": true
     },
     "autoload": {
         "psr-4": {
