@@ -707,7 +707,7 @@ class SwaggerFactory
         $format = $this->get($spec, 'format');
 
         if ($type === 'array') {
-            $items = $this->getRequired($spec, 'items');
+            $items = $this->parseItems($this->getRequired($spec, 'items'), $chains);
         } else {
             $items = null;
         }
