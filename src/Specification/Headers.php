@@ -33,4 +33,12 @@ class Headers
     {
         return $this->headers[strtolower($name)];
     }
+
+    /**
+     * @return Header[]
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
 }
