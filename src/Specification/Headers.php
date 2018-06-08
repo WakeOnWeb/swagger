@@ -19,7 +19,7 @@ class Headers
      */
     public function __construct(array $headers)
     {
-        foreach ($this->headers as $name => $header) {
+        foreach ($headers as $name => $header) {
             $this->headers[strtolower($name)] = $header;
         }
     }
