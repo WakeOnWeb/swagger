@@ -12,7 +12,7 @@ The component uses:
 Installation
 ------------
 
-The component can easily be installaed using
+The component can easily be installed using
 
     composer require wakeonweb/swagger
     
@@ -63,7 +63,7 @@ $contentValidator->registerContentValidator(new JustinRainbowJsonSchemaValidator
 Validating a response
 ---------------------
 
-Validating response makes sense only for testing... As you are supposed to have valid code respectfull of your 
+Validating response makes sense only for testing... As you are supposed to have valid code respectful of your 
 interface agreements in production! 
 
 ```php
@@ -76,7 +76,7 @@ $response = new Response(...);
 
 $psr7Factory = new DiactorosFactory();
 
-// Converts the response to a PRS-7 compliant format.
+// Converts the response to a PSR-7 compliant format.
 $response = $psr7Factory->createResponse($response);
 
 try {
@@ -90,7 +90,7 @@ try {
 Validating a request
 --------------------
 
-Validating response makes sense only for testing... As you are supposed to have valid code respectfull of your 
+Validating response makes sense only for testing... As you are supposed to have valid code respectful of your 
 interface agreements in production! 
 
 ```php
